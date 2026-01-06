@@ -10,6 +10,8 @@
 
 .navBar .logo{
     width: 150px;
+
+    cursor: pointer;
 }
 
 /* NavBar Menu Section -------------------------------------- */
