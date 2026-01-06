@@ -1,10 +1,42 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './App.css'
-import NavBar from './Components/NavBar/NavBar'
+import Layout from './Pages/Routes/Layout'
+import Home from './Pages/Home/Home'
+import PlaceOrder from './Pages/PlaceOrder/PlaceOrder'
+import Cart from './Pages/Cart/Cart'
 
 export default function App() {
-  return(
+
+  // ALL Routes.........................................
+  const routes = createBrowserRouter([
+    // Main Layout path.................................
+    {
+      path: "/",
+      element: <Layout />,
+      // Children Routes..............................
+      children: [
+        // HOme path........................
+        {
+          path: "/",
+          element: <Home />
+        },
+        // Cart Path.........................
+        {
+          path: "/cart",
+          element: <Cart />
+        },
+        // Place Order Path........................
+        {
+          path: "/placeOrder",
+          element: <PlaceOrder />
+        },
+      ]
+    }
+  ])
+  
+  return (
     <div className='app'>
-      <NavBar/>
+      <RouterProvider router={routes} />
     </div>
   )
 }
