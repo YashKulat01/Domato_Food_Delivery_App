@@ -24,7 +24,7 @@ const StoreContextProvider = (props) => {
     }
 
     useEffect(()=>{
-        console.log(cartItems);
+        // console.log(cartItems);
     },[cartItems])
 
     // CONTEXT FOR GETTING ALL PRODUCT OBJECTS...
