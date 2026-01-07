@@ -84,3 +84,56 @@
 .navBar button:hover{
     background-color: #faebe8;
 }
+
+
+/* Media Queries................. */
+
+/* For Screen>Laptops and others */
+@media (max-width:1050px){
+    .navBar .logo{
+        width: 140px;
+    }
+    .navBarMenu{
+        gap: 20px;
+        font-size: 17px;
+    }
+    .navBarRight{
+        gap: 30px;
+    }
+
+    .navBarRight img{
+        width: 22px;
+    }
+    .navBarRight button{
+        padding: 8px 25px;
+    }
+}
+
+/* For Tablet */
+@media (max-width:900px){
+    .navBar .logo{
+        width: 120px;
+    }
+    .navBarMenu{
+        gap: 15px;
+        font-size: 16px;
+    }
+    .navBarRight{
+        gap: 20px;
+    }
+
+    .navBarRight img{
+        width: 20px;
+    }
+    .navBarRight button{
+        padding: 7px 20px;
+        font-size: 15px;
+    }
+}
+
+/* For Mobile */
+@media (max-width:750px){
+    .navBarMenu{
+        display: none;
+    }
+}

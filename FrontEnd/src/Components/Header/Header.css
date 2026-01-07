@@ -58,3 +58,28 @@
 .headerContents button:hover{
     background-color: #dfdfdf;
 }
+
+/* Media Queries................. */
+
+/* For Screen>Laptops and others */
+@media (max-width:1050px) {
+    .headerContents{
+        max-width: 45%;
+    }
+}
+
+/* For Tablet .................*/
+
+@media (max-width:750px) {
+    .headerContents{
+        max-width: 55%;
+    }
+
+    .headerContents p{
+        display: none;
+    }
+
+    .headerContents button{
+        padding: 2vw 4vw;
+    }
+}

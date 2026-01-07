@@ -65,3 +65,15 @@
     border: 4px solid tomato;
     padding: 2px;
 }
+
+
+/*  Media Queries................. */ 
+
+/* For Screen>Laptops and others */
+
+@media (max-width:1050px){
+    .exploreMenuText{
+        max-width: 100%;
+        font-size: 14px;
+    }
+}
