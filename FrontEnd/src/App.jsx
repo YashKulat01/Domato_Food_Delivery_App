@@ -34,11 +34,11 @@ export default function App() {
       ]
     }
   ])
-  
+
   return (
     <div className='app'>
       <RouterProvider router={routes} />
-      <StoreContextProvider/>
+      <StoreContextProvider />
     </div>
   )
 }

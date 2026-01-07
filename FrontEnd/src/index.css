@@ -10,6 +10,7 @@
 body {
   min-height: 100vh;
   background-color: #f8f8f8;
+  width: 100%;
 }
 
 a {
