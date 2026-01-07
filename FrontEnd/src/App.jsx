@@ -4,6 +4,7 @@ import Layout from './Pages/Routes/Layout'
 import Home from './Pages/Home/Home'
 import PlaceOrder from './Pages/PlaceOrder/PlaceOrder'
 import Cart from './Pages/Cart/Cart'
+import StoreContextProvider from './Components/Context/StoredContext'
 
 export default function App() {
 
@@ -37,6 +38,7 @@ export default function App() {
   return (
     <div className='app'>
       <RouterProvider router={routes} />
+      <StoreContextProvider/>
     </div>
   )
 }
