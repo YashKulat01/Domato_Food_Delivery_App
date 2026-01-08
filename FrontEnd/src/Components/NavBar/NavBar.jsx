@@ -3,7 +3,7 @@ import './NavBar.css'
 import { assets } from '../../assets/assets.js'
 import { Link } from 'react-router-dom';
 
-export default function NavBar() {
+export default function NavBar({setLogin}) {
 
     const [menu, setMenu] = useState("Home");
     return (
@@ -33,7 +33,7 @@ export default function NavBar() {
                     <div className="dot"></div>
                 </div>
                 {/* NavBar Right Section/Sign in Section */}
-                <button>Sign in</button>
+                <button onClick={()=>setLogin(true)}>Sign in</button>
             </div>
         </div>
     )

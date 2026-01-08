@@ -1,0 +1,119 @@
+.loginSec {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 0;
+    margin: 0;
+
+    background-color: #00000099;
+
+    display: grid;
+}
+
+.loginCont {
+    place-self: center;
+
+    width: max(23vw, 330px);
+
+    color: #808080;
+
+    background-color: #fff;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+
+    padding: 25px 30px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    animation: fadeIn 0.5s;
+}
+
+.loginTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+}
+
+.loginTitle img {
+    width: 16px;
+    cursor: pointer;
+}
+
+.loginInput {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.loginInput input {
+    outline: none;
+
+    border: 2px solid #c9c9c9;
+
+    padding: 10px;
+
+    border-radius: 4px;
+}
+
+.loginInput input:hover {
+    border: 2px solid tomato;
+
+    animation: 2s;
+}
+
+.loginCont button{
+    border: none;
+
+    padding: 10px;
+
+    border-radius: 4px;
+
+    color: white;
+    background-color: tomato;
+
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.loginCont button:hover{
+    background-color: rgb(235, 82, 56);
+}
+
+.loginCondition{
+    display: flex;
+    align-items: start;
+    gap: 8px;
+
+    margin-top: 10px;
+}
+
+.loginCondition input{
+    margin-top: 4px;
+}
+
+.loginCont p span{
+    color: tomato;
+
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+.loginCont p span:hover{
+    text-decoration: underline;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
