@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './NavBar.css'
 import { assets } from '../../assets/assets.js'
+import { Link } from 'react-router-dom';
 
 export default function NavBar() {
 
@@ -14,10 +15,10 @@ export default function NavBar() {
                 className='logo' />
             {/* NavBar Menu Section */}
             <ul className="navBarMenu">
-                <li onClick={() => setMenu("Home")} className={menu === "Home" ? "active" : ""}>Home</li>
-                <li onClick={() => setMenu("Menu")} className={menu === "Menu" ? "active" : ""}>Menu</li>
-                <li onClick={() => setMenu("MobileApp")} className={menu === "MobileApp" ? "active" : ""}>Mobile App</li>
-                <li onClick={() => setMenu("ContactUs")} className={menu === "ContactUs" ? "active" : ""}>Contact Us</li>
+                <Link to='/' onClick={() => setMenu("Home")} className={menu === "Home" ? "active" : ""}>Home</Link>
+                <a href='#exploreMenu' onClick={() => setMenu("Menu")} className={menu === "Menu" ? "active" : ""}>Menu</a>
+                <a href='#appDownload' onClick={() => setMenu("MobileApp")} className={menu === "MobileApp" ? "active" : ""}>Mobile App</a>
+                <a href='#footer' onClick={() => setMenu("ContactUs")} className={menu === "ContactUs" ? "active" : ""}>Contact Us</a>
             </ul>
             {/* NavBar Right Section */}
             <div className="navBarRight">
