@@ -1,4 +1,4 @@
-.navBar{
+.navBar {
     padding: 20px 0px;
 
     display: flex;
@@ -8,7 +8,7 @@
 
 /* NavBar Logo Section -------------------------------------- */
 
-.navBar .logo{
+.navBar .logo {
     width: 150px;
 
     cursor: pointer;
@@ -16,7 +16,7 @@
 
 /* NavBar Menu Section -------------------------------------- */
 
-.navBarMenu{
+.navBarMenu {
     display: flex;
     gap: 20px;
 
@@ -27,28 +27,28 @@
 
 }
 
-.navBar li{
+.navBar li {
     cursor: pointer;
 }
 
 /* NavBar Right Section -------------------------------------- */
 
-.navBarRight{
+.navBarRight {
     display: flex;
     align-items: center;
     gap: 40px;
 }
 
-.navBar .active{
+.navBar .active {
     padding-bottom: 2px;
     border-bottom: 2px solid black;
 }
 
-.navBarSearchIcon{
+.navBarSearchIcon {
     position: relative;
 }
 
-.navBarSearchIcon .dot{
+.navBarSearchIcon .dot {
     position: absolute;
 
     min-width: 10px;
@@ -65,13 +65,13 @@
 
 /* NavBar Right/Button Section -------------------------------------- */
 
-.navBar button{
+.navBar button {
     background: transparent;
-    
+
     font-size: 16px;
     color: black;
 
-    border:1px solid tomato;
+    border: 1px solid tomato;
     border-radius: 50px;
 
     padding: 10px 30px;
@@ -81,7 +81,7 @@
     transition: 0.3s;
 }
 
-.navBar button:hover{
+.navBar button:hover {
     background-color: #faebe8;
 }
 
@@ -89,51 +89,67 @@
 /* Media Queries................. */
 
 /* For Screen>Laptops and others */
-@media (max-width:1050px){
-    .navBar .logo{
+@media (max-width:1050px) {
+    .navBar .logo {
         width: 140px;
     }
-    .navBarMenu{
+
+    .navBarMenu {
         gap: 20px;
         font-size: 17px;
     }
-    .navBarRight{
+
+    .navBarRight {
         gap: 30px;
     }
 
-    .navBarRight img{
+    .navBarRight img {
         width: 22px;
     }
-    .navBarRight button{
+
+    .navBarRight button {
         padding: 8px 25px;
     }
 }
 
 /* For Tablet */
-@media (max-width:900px){
-    .navBar .logo{
+@media (max-width:900px) {
+    .navBar .logo {
         width: 120px;
     }
-    .navBarMenu{
+
+    .navBarMenu {
         gap: 15px;
         font-size: 16px;
     }
-    .navBarRight{
+
+    .navBarRight {
         gap: 20px;
     }
 
-    .navBarRight img{
+    .navBarRight img {
         width: 20px;
     }
-    .navBarRight button{
+
+    .navBarRight button {
         padding: 7px 20px;
         font-size: 15px;
     }
 }
 
 /* For Mobile */
-@media (max-width:750px){
-    .navBarMenu{
+@media (max-width:750px) {
+    .navBarMenu {
         display: none;
+    }
+}
+
+@media (max-width:375px) {
+    .navBarMenu {
+        display: none;
+    }
+
+    .navBar button {
+        padding: 5px 4px;
     }
 }

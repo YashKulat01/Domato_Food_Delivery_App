@@ -36,7 +36,7 @@
 .headerContents p{
     color: white;
 
-    font-size: 1vw;
+    font-size: 15px;
 }
 
 .headerContents button{
@@ -64,15 +64,15 @@
 /* For Screen>Laptops and others */
 @media (max-width:1050px) {
     .headerContents{
-        max-width: 45%;
+        max-width: 55%;
     }
 }
 
 /* For Tablet .................*/
 
-@media (max-width:750px) {
+@media (max-width:770px) {
     .headerContents{
-        max-width: 55%;
+        max-width: 45%;
     }
 
     .headerContents p{
@@ -81,5 +81,18 @@
 
     .headerContents button{
         padding: 2vw 4vw;
+    }
+}
+
+@media (max-width:420px) {
+    
+    .headerContents h2{
+        font-size: 16px;
+    }
+
+    .headerContents button {
+        padding: 5px 4px;
+        border-radius: 15px;
+        font-size: 10px;
     }
 }

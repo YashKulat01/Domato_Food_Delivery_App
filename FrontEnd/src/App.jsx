@@ -25,7 +25,7 @@ export default function App() {
         // Cart Path.........................
         {
           path: "/cart",
-          element: <Cart />
+          element: <Cart/>
         },
         // Place Order Path........................
         {

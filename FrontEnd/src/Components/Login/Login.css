@@ -117,3 +117,13 @@
   color: red;
   font-size: 12px;
 }
+
+@media(max-width:420px){
+    .loginCont{
+        width: max(23vw, 280px);
+    }
+
+    .loginCont p{
+        font-size: 12px;
+    }
+}

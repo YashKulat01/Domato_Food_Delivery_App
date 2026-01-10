@@ -1,18 +1,25 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './NavBar.css'
 import { assets } from '../../assets/assets.js'
 import { Link } from 'react-router-dom';
+import { storeContext } from '../Context/StoredContext.jsx';
 
-export default function NavBar({setLogin}) {
+export default function NavBar({ setLogin }) {
 
     const [menu, setMenu] = useState("Home");
+
+    // Cart DOT section
+    const { getTotalCartAmount } = useContext(storeContext);
+
     return (
         // navBar body
         <div className='navBar'>
             {/* NavBar Logo Section */}
-            <img src={assets.logo}
-                alt="webLogo"
-                className='logo' />
+            <Link to='/'>
+                <img src={assets.logo}
+                    alt="webLogo"
+                    className='logo' />
+            </Link>
             {/* NavBar Menu Section */}
             <ul className="navBarMenu">
                 <Link to='/' onClick={() => setMenu("Home")} className={menu === "Home" ? "active" : ""}>Home</Link>
@@ -28,12 +35,14 @@ export default function NavBar({setLogin}) {
 
                 <div className="navBarSearchIcon">
                     {/* NavBar Right Section/Basket Section */}
-                    <img src={assets.basket_icon}
-                        alt="basketIcon" />
-                    <div className="dot"></div>
+                    <Link to='/cart'>
+                        <img src={assets.basket_icon}
+                            alt="basketIcon" />
+                    </Link>
+                    <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
                 </div>
                 {/* NavBar Right Section/Sign in Section */}
-                <button onClick={()=>setLogin(true)}>Sign in</button>
+                <button onClick={() => setLogin(true)}>Sign in</button>
             </div>
         </div>
     )
