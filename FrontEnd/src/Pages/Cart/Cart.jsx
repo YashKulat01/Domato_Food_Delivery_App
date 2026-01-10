@@ -5,7 +5,7 @@ import { storeContext } from '../../Components/Context/StoredContext'
 
 export default function Cart() {
 
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount } = useContext(storeContext);
+  const { cartItems, food_list, removeFromCart, getTotalCartAmount} = useContext(storeContext);
 
   return (
     <div className='cart'>

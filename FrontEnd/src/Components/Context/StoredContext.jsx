@@ -27,6 +27,7 @@ const StoreContextProvider = (props) => {
     //     // console.log(cartItems);
     // },[cartItems])
 
+    // CALCULATE TOTAL AMOUNT
     const getTotalCartAmount = () => {
         let totalAmount = 0;
         for (const item in cartItems) {
