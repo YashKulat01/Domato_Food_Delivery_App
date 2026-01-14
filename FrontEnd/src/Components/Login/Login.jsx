@@ -57,7 +57,7 @@ export default function Login({ setLogin }) {
     e.preventDefault();
 
     if (validate()) {
-    //   alert(`${currState} successful`);
+      //   alert(`${currState} successful`);
       // console.log(formData);
     }
   };
