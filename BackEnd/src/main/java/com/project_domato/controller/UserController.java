@@ -35,6 +35,8 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+// REGISTER USER SECTION----------------------------------------------------------
+	
 	@PostMapping("/register")
 	public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
 		// TODO: process POST request
@@ -43,27 +45,41 @@ public class UserController {
 		return new ResponseEntity<UserDTO>(registeredUser, HttpStatus.CREATED);
 	}
 
+// GET ALL USER SECTION -----------------------------------------------------------
+	
 	@GetMapping
 	public ResponseEntity<List<UserDTO>> getAllUsers() {
 
 		return ResponseEntity.ok(userService.getAllUsers());
 	}
 
+// GET USER BY ROLE SECTION ----------------------------------------------------------
+	
 	@GetMapping("/role/{role}")
 	public ResponseEntity<List<UserDTO>> getUsersByRole(@PathVariable Role role) {
 
 		return ResponseEntity.ok(userService.getUsersByRoles(role));
 	}
 
-	@DeleteMapping("/email")
-	public ResponseEntity<Map<String, String>> deleteUser(@PathVariable String email){
-		
+// DELETE USER BY EMAIL SECTION -----------------------------------------------------------------
+	
+	@DeleteMapping("delUser/{email}")
+	public ResponseEntity<Map<String, String>> deleteUser(@PathVariable String email) {
+
 		userService.removeUser(email);
-		
+
 		HashMap<String, String> map = new HashMap<String, String>();
-		
+
 		map.put("Message", "User Deleted!");
-		
+
 		return ResponseEntity.ok(map);
+	}
+
+// GET USER BY EMAIL SECTION -----------------------------------------------------
+	
+	@GetMapping("/getUser/{email}")
+	public ResponseEntity<UserDTO> getUserById(@PathVariable String email) {
+
+		return ResponseEntity.ok(userService.findByEmail(email));
 	}
 }

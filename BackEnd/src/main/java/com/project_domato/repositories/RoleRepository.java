@@ -1,5 +1,5 @@
 /**
- * 
+ * 	AUTHOR:-> YASH KULAT
  */
 package com.project_domato.repositories;
 
@@ -11,7 +11,7 @@ import com.project_domato.Entities.Role;
 import com.project_domato.enums.AppRole;
 
 /**
- * 
+ * 	ROLE REPOSITORY INTERFACE
  */
 public interface RoleRepository extends JpaRepository<Role, Integer>{
 	Optional<Role> findByRoleName(AppRole appRole);

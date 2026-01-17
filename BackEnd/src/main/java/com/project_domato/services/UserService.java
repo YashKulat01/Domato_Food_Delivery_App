@@ -9,7 +9,7 @@ import com.project_domato.Entities.Role;
 import com.project_domato.dtos.UserDTO;
 
 /**
- * USER SERVICE
+ * USER SERVICE INTERFACE
  */
 public interface UserService {
 
@@ -20,5 +20,7 @@ public interface UserService {
 	List<UserDTO> getUsersByRoles(Role role);
 	
 	void removeUser(String email);
+
+	UserDTO findByEmail(String email);
 
 }
