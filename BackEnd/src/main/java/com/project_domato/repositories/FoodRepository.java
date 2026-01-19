@@ -11,7 +11,7 @@ import com.project_domato.enums.FoodCategory;
 
 public interface FoodRepository extends JpaRepository<Food, Integer>{
 
-	List<Food> findByFoodCategory(FoodCategory foodCategory);
+	List<Food> getFoodByCategory(FoodCategory foodCategory);
 	
 	Optional<Food>findByFoodName(String foodName);
 }

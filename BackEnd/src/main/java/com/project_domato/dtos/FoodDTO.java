@@ -16,5 +16,6 @@ public class FoodDTO {
 	private String foodImg;
 	private Double foodPrice;
 	private String foodDesc;
+//	private Category category;
 	private FoodCategory foodCategory;
 }

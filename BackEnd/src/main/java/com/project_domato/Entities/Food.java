@@ -1,14 +1,12 @@
 package com.project_domato.Entities;
 
-import com.project_domato.enums.FoodCategory;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,6 +33,8 @@ public class Food {
 	@Column(nullable = false)
 	private String foodDesc;
 	
-	@Enumerated(EnumType.STRING)
-	private FoodCategory foodCategory;
+	@ManyToOne
+	@JsonManagedReference
+	private Category category;
+	
 }

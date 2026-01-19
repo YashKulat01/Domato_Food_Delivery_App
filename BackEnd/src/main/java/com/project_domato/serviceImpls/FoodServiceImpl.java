@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.learn.ecotrack.exceptions.NotFoundException;
+import com.project_domato.Entities.Category;
 import com.project_domato.Entities.Food;
 import com.project_domato.dtos.FoodDTO;
 import com.project_domato.enums.FoodCategory;
+import com.project_domato.repositories.CategoryRepository;
 import com.project_domato.repositories.FoodRepository;
 import com.project_domato.services.FoodService;
 
@@ -20,6 +22,9 @@ public class FoodServiceImpl implements FoodService {
 	private FoodRepository foodRepository;
 
 	@Autowired
+	private CategoryRepository categoryRepository;
+	
+	@Autowired
 	private ModelMapper modelMapper;
 
 	@Override
@@ -28,6 +33,9 @@ public class FoodServiceImpl implements FoodService {
 
 		Food food = modelMapper.map(foodDTO, Food.class);
 
+		Category foodCategory = categoryRepository.findByFoodCategory(foodDTO.getFoodCategory()).orElseThrow(() -> new RuntimeException("Category not found"));
+		food.setCategory(foodCategory);
+		
 		Food savedFood = foodRepository.save(food);
 
 		return modelMapper.map(savedFood, FoodDTO.class);
@@ -36,7 +44,7 @@ public class FoodServiceImpl implements FoodService {
 	@Override
 	public List<FoodDTO> getFoodByCategory(FoodCategory foodCategory) {
 		// TODO Auto-generated method stub
-		return foodRepository.findByFoodCategory(foodCategory).stream().map((r) -> modelMapper.map(r, FoodDTO.class))
+		return foodRepository.getFoodByCategory(foodCategory).stream().map((r) -> modelMapper.map(r, FoodDTO.class))
 				.toList();
 	}
 
