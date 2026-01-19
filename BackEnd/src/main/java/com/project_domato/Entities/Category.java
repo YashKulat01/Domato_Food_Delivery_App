@@ -25,8 +25,8 @@ import lombok.NoArgsConstructor;
 public class Category {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer C_id;
 
     @Enumerated(EnumType.STRING)
     @Column(unique = true, nullable = false)
