@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project_domato.Entities.Role;
-import com.project_domato.dtos.CategoryDTO;
+import com.project_domato.dtos.FoodDTO;
 import com.project_domato.dtos.UserDTO;
 import com.project_domato.enums.FoodCategory;
 import com.project_domato.services.AdminService;
-import com.project_domato.services.CategoryService;
+import com.project_domato.services.FoodService;
 import com.project_domato.services.UserService;
 
 /**
@@ -40,8 +40,11 @@ public class AdminController {
 	@Autowired
 	private UserService userService;
 
+//	@Autowired
+//	private CategoryService categoryService;
+	
 	@Autowired
-	private CategoryService categoryService;
+	private FoodService foodService;
 
 	// ADD ADMIN SECTION
 	// ------------------------------------------------------------
@@ -108,34 +111,34 @@ public class AdminController {
 		return ResponseEntity.ok(userService.findByEmail(email));
 	}
 
-	// ADD CATEGORY SECTION
-	// ------------------------------------------------------
 
-	@PostMapping("/add_cate")
-	public ResponseEntity<CategoryDTO> addCategory(@RequestBody CategoryDTO categoryDTO) {
-		// TODO: process POST request
-
-		CategoryDTO addedCategory = categoryService.addCategory(categoryDTO);
-		return new ResponseEntity<CategoryDTO>(addedCategory, HttpStatus.CREATED);
+	// ADD FOOD SECTION
+	// --------------------------------------------------------------
+	@PostMapping("/add_food")
+	public ResponseEntity<FoodDTO> addFood(@RequestBody FoodDTO foodDTO){
+		
+		return ResponseEntity.ok(foodService.addFood(foodDTO));
 	}
-
-	// GET ALL CATEGORY SECTION
-	// ------------------------------------------------------
-	@GetMapping("/catgs")
-	public ResponseEntity<List<CategoryDTO>> getAllCategories() {
-		return ResponseEntity.ok(categoryService.findAllCategory());
+	
+	@GetMapping("/get_food/{Catg}")
+	public ResponseEntity<List<FoodDTO>> getFoodByCategory(@PathVariable FoodCategory Catg){
+		
+		return ResponseEntity.ok(foodService.getFoodByCategory(Catg));
 	}
+	
+	@GetMapping("/get_foods")
+	public ResponseEntity<List<FoodDTO>> getAllFoods(){
+		return ResponseEntity.ok(foodService.getAllFoods());
+	}
+	
+	@DeleteMapping("/del_food/{name}")
+	public ResponseEntity<Map<String, String>> deleteFood(@PathVariable String name) {
 
-	// DELETE CATEGORY SECTION
-	// ------------------------------------------------------
-	@DeleteMapping("del_catg/{foodCategory}")
-	public ResponseEntity<Map<String, String>> deleteCategory(@PathVariable FoodCategory foodCategory) {
-
-		categoryService.deleteCategory(foodCategory);
+		foodService.deleteFood(name);
 
 		HashMap<String, String> map = new HashMap<String, String>();
 
-		map.put("Message", "Category Deleted!");
+		map.put("Message", "Food Deleted!");
 
 		return ResponseEntity.ok(map);
 	}

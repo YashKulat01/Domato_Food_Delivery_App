@@ -1,23 +1,17 @@
-/**
- *  AUTHOR:-> YASH KULAT;
- */
 package com.project_domato.Entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.project_domato.enums.FoodCategory;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-/**
- * 	USER ENTITY CLASS
- */
 
 @Data
 @AllArgsConstructor
@@ -25,23 +19,22 @@ import lombok.NoArgsConstructor;
 @Entity
 
 public class Food {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Integer foodId;
+	
+	@Column(nullable = false,unique = true)
+	private String foodName;
+	
+	private String foodImg;
 	
 	@Column(nullable = false)
-	private String name;
-	
-	private String image;
+	private Double foodPrice;
 	
 	@Column(nullable = false)
-	private Double price;
+	private String foodDesc;
 	
-	@Column(nullable = false)
-	private String description;
-	
-	@ManyToOne
-	@JsonBackReference
-	private Category category;
+	@Enumerated(EnumType.STRING)
+	private FoodCategory foodCategory;
 }
