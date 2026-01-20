@@ -14,10 +14,11 @@ import com.project_domato.Entities.User;
 /**
  * THE USER REPOSITORY;
  */
-public interface UserRepository extends JpaRepository<User, String> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
 	Optional<User> findByEmail(String email);
 
 	List<User> getUsersByRole(Role role);
+
 
 }

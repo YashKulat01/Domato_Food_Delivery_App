@@ -5,12 +5,14 @@ package com.project_domato.Entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,8 +28,8 @@ import lombok.NoArgsConstructor;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private String id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 
 	@Column(length = 40, nullable = false) //
 	private String name;
@@ -44,4 +46,7 @@ public class User {
 	@ManyToOne
 	@JsonManagedReference
 	private Role role;
+	
+	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+	private Cart cart;
 }
