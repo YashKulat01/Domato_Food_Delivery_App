@@ -43,3 +43,13 @@
 .placeOrder .cartTotal button{
     margin-top: 30px;
 }
+
+@media (max-width:750px){
+    .placeOrder{
+        flex-direction: column;
+    }
+    .placeOrderLeft{
+        justify-self: end;
+        width: 100%;
+    }
+}
