@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
 		User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found !"));
 
 		Cart cart = cartRepository.findByUserId(userId).orElseThrow(() -> new NotFoundException("Cart Not Found !"));
-		
+
 		Order order = new Order();
 		order.setUser(user);
 
@@ -69,14 +69,14 @@ public class OrderServiceImpl implements OrderService {
 			totalAmt += cartItem.getQuantity() * cartItem.getFood().getFoodPrice();
 			orderItems.add(items);
 		}
-		
+
 		order.setTotalAmount(totalAmt);
-		
+
 		order.setOrderItems(orderItems);
-		
+
 		// EMPTY CART AFTER AN ORDER
 		cart.getItems().clear();
-		
+
 		Order savedOrder = orderRepository.save(order);
 
 		return modelMapper.map(savedOrder, OrderDTO.class);
@@ -85,49 +85,77 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<OrderDTO> getOrdersByUser(Integer userId) {
 		// TODO Auto-generated method stub
-		return null;
+		return orderRepository.findByUserId(userId).stream().map((r) -> modelMapper.map(r, OrderDTO.class)).toList();
 	}
 
 	@Override
 	public OrderDTO getOrderById(Integer orderId) {
 		// TODO Auto-generated method stub
-		return null;
+		Order order = orderRepository.findById(orderId).orElseThrow(() -> new NotFoundException("Order not Found !"));
+
+		return modelMapper.map(order, OrderDTO.class);
 	}
 
 	@Override
 	public OrderDTO confirmOrder(Integer orderId) {
 		// TODO Auto-generated method stub
-		return null;
+
+		Order order = orderRepository.findById(orderId).orElseThrow(() -> new NotFoundException("Order Not Found !"));
+
+		order.setOrderStatus(OrderStatus.CONFIRMED);
+
+		Order savedOrder = orderRepository.save(order);
+
+		return modelMapper.map(savedOrder, OrderDTO.class);
 	}
 
 	@Override
 	public OrderDTO prepareOrder(Integer orderId) {
 		// TODO Auto-generated method stub
-		return null;
+		Order order = orderRepository.findById(orderId).orElseThrow(() -> new NotFoundException("Order Not Found !"));
+
+		order.setOrderStatus(OrderStatus.PREPARING);
+
+		Order savedOrder = orderRepository.save(order);
+
+		return modelMapper.map(savedOrder, OrderDTO.class);
 	}
 
 	@Override
 	public OrderDTO deliverOrder(Integer orderId) {
 		// TODO Auto-generated method stub
-		return null;
+		Order order = orderRepository.findById(orderId).orElseThrow(() -> new NotFoundException("Order Not Found !"));
+
+		order.setOrderStatus(OrderStatus.DELIVERED);
+
+		Order savedOrder = orderRepository.save(order);
+
+		return modelMapper.map(savedOrder, OrderDTO.class);
 	}
 
 	@Override
 	public OrderDTO cancelOrder(Integer orderId) {
 		// TODO Auto-generated method stub
-		return null;
+		Order order = orderRepository.findById(orderId).orElseThrow(() -> new NotFoundException("Order Not Found !"));
+
+		order.setOrderStatus(OrderStatus.CANCELLED);
+
+		Order savedOrder = orderRepository.save(order);
+
+		return modelMapper.map(savedOrder, OrderDTO.class);
 	}
 
 	@Override
 	public List<OrderDTO> getOrdersByStatus(OrderStatus orderStatus) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		return orderRepository.findByOrderStatus(orderStatus).stream().map((r)->modelMapper.map(r, OrderDTO.class)).toList();
 	}
 
 	@Override
 	public List<OrderDTO> getAllOrders() {
 		// TODO Auto-generated method stub
-		return null;
+		return orderRepository.findAll().stream().map((r) -> modelMapper.map(r, OrderDTO.class)).toList();
 	}
 
 }
