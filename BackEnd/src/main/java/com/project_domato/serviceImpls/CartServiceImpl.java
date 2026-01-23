@@ -7,12 +7,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.learn.ecotrack.exceptions.NotFoundException;
 import com.project_domato.Entities.Cart;
 import com.project_domato.Entities.CartItems;
 import com.project_domato.Entities.Food;
 import com.project_domato.Entities.User;
 import com.project_domato.dtos.CartDTO;
+import com.project_domato.exceptions.NotFoundException;
 import com.project_domato.repositories.CartRepository;
 import com.project_domato.repositories.FoodRepository;
 import com.project_domato.repositories.UserRepository;
