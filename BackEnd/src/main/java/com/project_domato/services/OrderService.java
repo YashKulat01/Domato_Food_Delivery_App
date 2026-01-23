@@ -25,4 +25,6 @@ public interface OrderService {
 	
 	List<OrderDTO> getAllOrders();
 	
+	void deleteOrder(Integer orderId);
+	
 }

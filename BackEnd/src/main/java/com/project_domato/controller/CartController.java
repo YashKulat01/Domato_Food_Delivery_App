@@ -56,11 +56,22 @@ public class CartController {
 	@DeleteMapping("/clr_cart/{id}")
 	public ResponseEntity<Map<String, String>> clearCart(@PathVariable Integer id) {
 
-		cartService.deleteCart(id);
+		cartService.clearCart(id);
 
 		HashMap<String, String> map = new HashMap<String, String>();
 
 		map.put("Message", "Cart Cleared !");
+
+		return ResponseEntity.ok(map);
+	}
+	
+	@DeleteMapping("/del_cart/{id}")
+	public ResponseEntity<Map<String, String>> deleteCart(@PathVariable Integer id) {
+
+		cartService.deleteCart(id);
+		HashMap<String, String> map = new HashMap<String, String>();
+
+		map.put("Message", "Cart Deleted !");
 
 		return ResponseEntity.ok(map);
 	}

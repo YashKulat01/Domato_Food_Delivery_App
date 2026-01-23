@@ -12,8 +12,9 @@ public interface CartService {
 	
 	CartDTO removeFromCart(Integer userId, Integer foodId);
 	
-	void deleteCart(Integer userId);
+	void clearCart(Integer userId);
 	
 	List<CartDTO> getAllCarts();
 	
+	void deleteCart(Integer cartId);
 }

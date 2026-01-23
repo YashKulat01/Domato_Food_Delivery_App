@@ -1,5 +1,7 @@
 package com.project_domato.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +23,7 @@ public class CartItems {
 	private Integer id;
 	
 	@ManyToOne
+	@JsonBackReference
 	private Cart cart;
 	
 	@ManyToOne

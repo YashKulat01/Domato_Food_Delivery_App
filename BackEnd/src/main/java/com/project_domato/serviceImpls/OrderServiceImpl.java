@@ -158,4 +158,13 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepository.findAll().stream().map((r) -> modelMapper.map(r, OrderDTO.class)).toList();
 	}
 
+	@Override
+	public void deleteOrder(Integer orderId) {
+		// TODO Auto-generated method stub
+		
+		Order order = orderRepository.findById(orderId).orElseThrow(() -> new NotFoundException("Order not Found !"));
+		
+		orderRepository.delete(order);
+	}
+
 }

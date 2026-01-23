@@ -95,13 +95,14 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public void deleteCart(Integer userId) {
+	public void clearCart(Integer userId) {
 		// TODO Auto-generated method stub
 
 		Cart cart = cartRepository.findByUserId(userId).orElseThrow(() -> new NotFoundException("Cart Not Found"));
 
 		cart.getItems().clear();
 		cart.setTotalPrice(0.0);
+		
 		cartRepository.save(cart);
 
 	}
@@ -119,6 +120,16 @@ public class CartServiceImpl implements CartService {
 		List<CartDTO> allSavedCarts = allCarts.stream().map((r)-> modelMapper.map(r, CartDTO.class)).toList();
 		
 		return allSavedCarts;
+	}
+
+	@Override
+	public void deleteCart(Integer cartId) {
+		// TODO Auto-generated method stub
+		
+	 Cart userCart = cartRepository.findByUserId(cartId).orElseThrow(() -> new NotFoundException("Cart Not Found !"));
+	 
+		cartRepository.delete(userCart);
+		
 	}
 
 }

@@ -3,6 +3,9 @@ package com.project_domato.Entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,10 +31,12 @@ public class Cart {
 
 	@OneToOne
 	@JoinColumn(name = "user_id")
+	@JsonBackReference
 	private User user;
 
 	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
 	private List<CartItems> items = new ArrayList<>();
-	
+
 	private Double totalPrice = 0.0;
 }

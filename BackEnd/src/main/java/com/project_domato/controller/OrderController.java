@@ -1,9 +1,12 @@
 package com.project_domato.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +22,7 @@ import com.project_domato.services.OrderService;
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
+
 
 	@Autowired
 	private OrderService orderService;
@@ -75,6 +79,18 @@ public class OrderController {
 		
 		return ResponseEntity.ok(orderService.getAllOrders());
 		
+	}
+	
+	@DeleteMapping("/del_order/{id}")
+	public ResponseEntity<Map<String, String>> deleteFood(@PathVariable Integer id) {
+
+		orderService.deleteOrder(id);
+
+		HashMap<String, String> map = new HashMap<String, String>();
+
+		map.put("Message", "order Deleted!");
+
+		return ResponseEntity.ok(map);
 	}
 	
 }
