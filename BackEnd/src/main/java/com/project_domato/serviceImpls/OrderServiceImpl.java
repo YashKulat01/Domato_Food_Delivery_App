@@ -8,7 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project_domato.exceptions.NotFoundException;
+import com.project_domato.exception.NotFoundException;
 import com.project_domato.Entities.Cart;
 import com.project_domato.Entities.CartItems;
 import com.project_domato.Entities.Order;
@@ -70,7 +70,9 @@ public class OrderServiceImpl implements OrderService {
 			orderItems.add(items);
 		}
 
-		order.setTotalAmount(totalAmt);
+		double deliveryFee = 2.0;
+
+		order.setTotalAmount(totalAmt + deliveryFee);
 
 		order.setOrderItems(orderItems);
 
@@ -148,8 +150,9 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<OrderDTO> getOrdersByStatus(OrderStatus orderStatus) {
 		// TODO Auto-generated method stub
-		
-		return orderRepository.findByOrderStatus(orderStatus).stream().map((r)->modelMapper.map(r, OrderDTO.class)).toList();
+
+		return orderRepository.findByOrderStatus(orderStatus).stream().map((r) -> modelMapper.map(r, OrderDTO.class))
+				.toList();
 	}
 
 	@Override
@@ -161,9 +164,9 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void deleteOrder(Integer orderId) {
 		// TODO Auto-generated method stub
-		
+
 		Order order = orderRepository.findById(orderId).orElseThrow(() -> new NotFoundException("Order not Found !"));
-		
+
 		orderRepository.delete(order);
 	}
 

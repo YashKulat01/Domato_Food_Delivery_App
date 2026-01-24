@@ -12,7 +12,7 @@ import com.project_domato.Entities.CartItems;
 import com.project_domato.Entities.Food;
 import com.project_domato.Entities.User;
 import com.project_domato.dtos.CartDTO;
-import com.project_domato.exceptions.NotFoundException;
+import com.project_domato.exception.NotFoundException;
 import com.project_domato.repositories.CartRepository;
 import com.project_domato.repositories.FoodRepository;
 import com.project_domato.repositories.UserRepository;

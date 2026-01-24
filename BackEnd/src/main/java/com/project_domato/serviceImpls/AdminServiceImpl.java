@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project_domato.exceptions.NotFoundException;
+import com.project_domato.exception.NotFoundException;
 import com.project_domato.Entities.Role;
 import com.project_domato.Entities.User;
 import com.project_domato.dtos.UserDTO;

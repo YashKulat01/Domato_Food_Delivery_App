@@ -3,6 +3,7 @@ package com.project_domato.dtos;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.project_domato.Entities.Address;
 import com.project_domato.enums.OrderStatus;
 
 import lombok.AllArgsConstructor;
@@ -25,4 +26,6 @@ public class OrderDTO {
 	private LocalDateTime orderDate;
 	
 	private List<OrderItemsDTO> orderItems;
+	
+	private Address address;
 }
