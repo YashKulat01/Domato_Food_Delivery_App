@@ -53,5 +53,10 @@ public class Order {
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	@JsonManagedReference
 	private Address address;
+	
+	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "payment_id", referencedColumnName = "id")
+	@JsonManagedReference
+	private Payment payment;
 
 }
