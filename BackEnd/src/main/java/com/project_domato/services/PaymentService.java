@@ -11,7 +11,7 @@ public interface PaymentService {
 	
 	PaymentDTO getPaymentByOrderId(Integer orderId);
 	
-	PaymentDTO updatePaymentStatus(Integer paymentId,PaymentStatus paymentStatus);
+//	PaymentDTO updatePaymentStatus(Integer paymentId,String paymentStatus);
 	
 	List<PaymentDTO> getPayementsByStatus(PaymentStatus paymentStatus);
 }

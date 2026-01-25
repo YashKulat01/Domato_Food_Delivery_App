@@ -7,10 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project_domato.dtos.PaymentDTO;
@@ -31,20 +29,20 @@ public class PaymentController {
 		return ResponseEntity.ok(paymentService.createPayment(paymentDTO, order_id));
 	}
 
-	@GetMapping("/order/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<PaymentDTO> getPaymentByOrderId(@PathVariable Integer id) {
 
 		return ResponseEntity.ok(paymentService.getPaymentByOrderId(id));
 	}
 
-	@PutMapping("/paymentId/status")
-	public ResponseEntity<PaymentDTO> updatePaymentStatus(@PathVariable Integer paymentId,
-			@RequestParam PaymentStatus status) {
+//	@PutMapping("/{paymentId}/{status}")
+//	public ResponseEntity<PaymentDTO> updatePaymentStatus(@PathVariable Integer paymentId,
+//			@RequestParam String status) {
+//
+//		return ResponseEntity.ok(paymentService.updatePaymentStatus(paymentId, status));
+//	}
 
-		return ResponseEntity.ok(paymentService.updatePaymentStatus(paymentId, status));
-	}
-
-	@GetMapping("/by_status/status")
+	@GetMapping("/by_status/{status}")
 	public ResponseEntity<List<PaymentDTO>> getPaymentByStatus(@PathVariable PaymentStatus status) {
 
 		return ResponseEntity.ok(paymentService.getPayementsByStatus(status));

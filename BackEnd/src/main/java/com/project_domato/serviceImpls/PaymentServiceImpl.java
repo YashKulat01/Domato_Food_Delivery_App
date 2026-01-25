@@ -57,19 +57,19 @@ public class PaymentServiceImpl implements PaymentService {
 		return modelMapper.map(payment, PaymentDTO.class);
 	}
 
-	@Override
-	public PaymentDTO updatePaymentStatus(Integer paymentId, PaymentStatus paymentStatus) {
-		// TODO Auto-generated method stub
-
-		Payment payment = paymentRepository.findById(paymentId)
-				.orElseThrow(() -> new NotFoundException("Payment Not Found !"));
-
-		payment.setPayementStatus(paymentStatus);
-
-		Payment updatedPayment = paymentRepository.save(payment);
-
-		return modelMapper.map(updatedPayment, PaymentDTO.class);
-	}
+//	@Override
+//	public PaymentDTO updatePaymentStatus(Integer paymentId, String paymentStatus) {
+//		// TODO Auto-generated method stub
+//
+//		Payment payment = paymentRepository.findById(paymentId)
+//				.orElseThrow(() -> new NotFoundException("Payment Not Found !"));
+//
+//		payment.setPayementStatus(PaymentStatus.);
+//
+//		Payment updatedPayment = paymentRepository.save(payment);
+//
+//		return modelMapper.map(updatedPayment, PaymentDTO.class);
+//	}
 
 	@Override
 	public List<PaymentDTO> getPayementsByStatus(PaymentStatus paymentStatus) {
