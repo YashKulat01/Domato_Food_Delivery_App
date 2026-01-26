@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setTotalAmount(totalAmt + deliveryFee);
 
 		order.setOrderItems(orderItems);
-
+		
 		// EMPTY CART AFTER AN ORDER
 		cart.getItems().clear();
 
