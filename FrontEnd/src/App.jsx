@@ -6,6 +6,10 @@ import PlaceOrder from './Pages/PlaceOrder/PlaceOrder'
 import Cart from './Pages/Cart/Cart'
 import StoreContextProvider from './Components/Context/StoredContext'
 import Footer from './Components/Footer/Footer'
+import Admin from './admin/Admin'
+import Add from './admin/Pages/add/Add'
+import List from './admin/Pages/list/List'
+import Orders from './admin/Pages/Orders/Orders'
 
 export default function App() {
 
@@ -25,13 +29,31 @@ export default function App() {
         // Cart Path.........................
         {
           path: "/cart",
-          element: <Cart/>
+          element: <Cart />
         },
         // Place Order Path........................
         {
           path: "/placeOrder",
           element: <PlaceOrder />
         },
+      ]
+    },
+    {
+      path: "/admin",
+      element: <Admin />,
+      children:[
+        {
+          path:"/admin/add",
+          element:<Add/>
+        },
+        {
+          path:"/admin/list",
+          element:<List/>
+        },
+        {
+          path:"/admin/orders",
+          element:<Orders/>
+        }
       ]
     }
   ])
@@ -42,7 +64,6 @@ export default function App() {
         <RouterProvider router={routes} />
         <StoreContextProvider />
       </div>
-      <Footer />
     </>
   )
 }

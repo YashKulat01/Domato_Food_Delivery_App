@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom'
 
 import NavBar from '../../Components/NavBar/NavBar'
 import Login from '../../Components/Login/Login';
+import Footer from '../../Components/Footer/Footer';
 
 export default function Layout() {
 
@@ -15,6 +16,7 @@ export default function Layout() {
             {login ? <Login setLogin={setLogin}/> : <></>}
             <NavBar setLogin={setLogin} />
             <Outlet />
+            <Footer />
         </>
     )
 }

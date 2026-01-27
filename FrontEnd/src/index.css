@@ -26,7 +26,13 @@ a {
 }
 
 .app {
-  margin: 0 10% 0 10%;
+  margin: 0 1% 0 1%;
+}
+
+.flex-col{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 @keyframes fadeIn {
@@ -37,4 +43,13 @@ a {
   100% {
     opacity: 1;
   }
+}
+
+
+
+
+/*  */
+
+.appContent{
+  display: flex;
 }
