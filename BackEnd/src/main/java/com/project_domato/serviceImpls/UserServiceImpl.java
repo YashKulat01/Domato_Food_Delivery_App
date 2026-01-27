@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project_domato.exception.NotFoundException;
@@ -33,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 // REGISTER USER SECTION----------------------------------------------------------
 
@@ -42,6 +46,8 @@ public class UserServiceImpl implements UserService {
 
 		User user = modelMapper.map(userDTO, User.class);
 
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
 		Role role = roleRepository.findByRoleName(AppRole.ROLE_USER)
 				.orElseThrow(() -> new RuntimeException("Role Not Found !!"));
 

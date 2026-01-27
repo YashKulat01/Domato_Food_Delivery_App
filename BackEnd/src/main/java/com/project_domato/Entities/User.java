@@ -4,7 +4,12 @@
 package com.project_domato.Entities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -29,7 +34,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class User {
+public class User implements UserDetails {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1625017187336014943L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,7 +51,7 @@ public class User {
 	@Column(unique = true, nullable = false)
 	private String email;
 
-	@Column(length = 16, nullable = false)
+	@Column(nullable = false)
 	private String password;
 
 	@Column(length = 10, nullable = false)
@@ -57,6 +67,23 @@ public class User {
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
-	private List<Order> orders = new ArrayList<Order>();;
+	private List<Order> orders = new ArrayList<Order>();
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return List.of(new SimpleGrantedAuthority(role.getRoleName().toString()));
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.email;
+	};
+	
+	public String getPassword() {
+		
+		return this.password;
+	};
 
 }
