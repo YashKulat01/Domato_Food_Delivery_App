@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { assets } from "../../assets/assets";
 
 export default function Login({ setLogin }) {
   const [currState, setCurrState] = useState("Sign Up");
 
+  const [isLoginIn, isSetLogin] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    phoneNo: "",
     agree: false
   });
 
@@ -23,6 +26,15 @@ export default function Login({ setLogin }) {
       [name]: type === "checkbox" ? checked : value
     });
   };
+
+useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      isSetLogin(true);
+    }
+  }, []);
+
+
 
   // validation logic
   const validate = () => {
@@ -52,13 +64,50 @@ export default function Login({ setLogin }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  // submit
-  const handleSubmit = (e) => {
+  // // submit
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   if (validate()) {
+  //   //   alert(`${currState} successful`);
+  //   //   console.log(formData);
+  //   }
+  // };
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validate()) {
-    //   alert(`${currState} successful`);
-    //   console.log(formData);
+      const endpoint =
+        currState === "Sign Up"
+          ? "http://localhost:8080/users/register"
+          : "http://localhost:8080/auth/login";
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          alert(`${currState} successful`);
+          console.log("Response:", data);
+
+          // Save JWT token if login
+          if (currState === "Login") {
+            localStorage.setItem("token", data.token);
+          }
+        } else {
+          setErrors({ api: data.message || "Something went wrong" });
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        setErrors({ api: "Server error. Try again later." });
+      }
     }
   };
 
@@ -85,6 +134,14 @@ export default function Login({ setLogin }) {
                 onChange={handleChange}
               />
               {errors.name && <p className="error">{errors.name}</p>}
+              <input
+                type="phone"
+                placeholder="Your Phone"
+                name="phoneNo"
+                value={formData.phoneNo}
+                onChange={handleChange}
+              />
+              {errors.phoneNo && <p className="error">{errors.phoneNo}</p>}
             </>
           )}
 
@@ -107,7 +164,7 @@ export default function Login({ setLogin }) {
           {errors.password && <p className="error">{errors.password}</p>}
         </div>
 
-        <button type="submit">
+        <button type="submit" onClick={()=>isSetLogin(true)}>
           {currState === "Sign Up" ? "Create account" : "Login"}
         </button>
 

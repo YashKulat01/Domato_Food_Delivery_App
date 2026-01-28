@@ -38,7 +38,7 @@ public class SecurityConfig {
 		// CSRF DISABLED....
 		httpSecurity.csrf(csrf -> csrf.disable()).cors(Customizer.withDefaults())
 				.authorizeHttpRequests(request -> request
-						.requestMatchers(HttpMethod.POST, "/users/register", "/auth/login","/users/**").permitAll()
+						.requestMatchers(HttpMethod.POST, "/users/register", "/auth/login").permitAll()
 						.requestMatchers(HttpMethod.GET, "/food/**", "/user/exists").permitAll()
 						.requestMatchers(HttpMethod.POST,"/orders/**").hasRole("USER")
 						.requestMatchers("/cart/**").hasRole("USER")

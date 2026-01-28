@@ -4,7 +4,7 @@ import { assets } from '../../assets/assets.js'
 import { Link } from 'react-router-dom';
 import { storeContext } from '../Context/StoredContext.jsx';
 
-export default function NavBar({ setLogin }) {
+export default function NavBar({ setLogin,isSetLogin }) {
 
     const [menu, setMenu] = useState("Home");
 
