@@ -9,18 +9,18 @@ export default function Login({ setLogin }) {
     name: "",
     email: "",
     password: "",
-    agree: false
+    agree: false,
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   // handle input change
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
@@ -44,7 +44,7 @@ export default function Login({ setLogin }) {
       newErrors.password = "Password must be at least 8 characters";
     }
 
-    if (!formData.agree) {
+    if (!formData.agree && currState === "Sign Up") {
       newErrors.agree = "You must accept terms & conditions";
     }
 
@@ -53,12 +53,35 @@ export default function Login({ setLogin }) {
   };
 
   // submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validate()) {
-      //   alert(`${currState} successful`);
-      // console.log(formData);
+      setLoading(true);
+      try {
+        let result;
+        if (currState === "Sign Up") {
+          result = await signupUser({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+          });
+          alert("Signup successful!");
+        } else {
+          result = await loginUser({
+            email: formData.email,
+            password: formData.password,
+          });
+          alert("Login successful!");
+          // Example: store JWT token
+          localStorage.setItem("token", result.token);
+        }
+        console.log("Backend response:", result);
+      } catch (error) {
+        alert("Error: " + error.message);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -107,19 +130,25 @@ export default function Login({ setLogin }) {
           {errors.password && <p className="error">{errors.password}</p>}
         </div>
 
-        <button type="submit">
-          {currState === "Sign Up" ? "Create account" : "Login"}
+        <button type="submit" disabled={loading}>
+          {loading
+            ? "Processing..."
+            : currState === "Sign Up"
+            ? "Create account"
+            : "Login"}
         </button>
 
-        <div className="loginCondition">
-          <input
-            type="checkbox"
-            name="agree"
-            checked={formData.agree}
-            onChange={handleChange}
-          />
-          <p>By continuing, I agree to the terms of use & privacy policy.</p>
-        </div>
+        {currState === "Sign Up" && (
+          <div className="loginCondition">
+            <input
+              type="checkbox"
+              name="agree"
+              checked={formData.agree}
+              onChange={handleChange}
+            />
+            <p>By continuing, I agree to the terms of use & privacy policy.</p>
+          </div>
+        )}
         {errors.agree && <p className="error">{errors.agree}</p>}
 
         {currState === "Login" ? (
