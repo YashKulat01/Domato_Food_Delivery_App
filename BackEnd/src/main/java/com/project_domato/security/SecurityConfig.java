@@ -39,12 +39,28 @@ public class SecurityConfig {
 		httpSecurity.csrf(csrf -> csrf.disable()).cors(Customizer.withDefaults())
 				.authorizeHttpRequests(request -> request
 						.requestMatchers(HttpMethod.POST, "/users/register", "/auth/login").permitAll()
+						.requestMatchers(HttpMethod.GET,"/users/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE,"/users/**").hasRole("ADMIN")
+						
 						.requestMatchers(HttpMethod.GET, "/food/**", "/user/exists").permitAll()
-						.requestMatchers(HttpMethod.POST,"/orders/**").hasRole("USER")
-						.requestMatchers("/cart/**").hasRole("USER")
+						.requestMatchers(HttpMethod.POST,"/food/**").hasRole("ADMIN")
+						
+						.requestMatchers(HttpMethod.POST,"/admin/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE,"/admin/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.GET,"/admin/**").hasRole("ADMIN")
+						
+						.requestMatchers(HttpMethod.POST,"/cart/**").hasRole("USER")
+						.requestMatchers(HttpMethod.DELETE,"/cart/**").hasRole("USER")
+						.requestMatchers(HttpMethod.GET,"/cart/**").hasRole("ADMIN")
+						
 						
 						.requestMatchers(HttpMethod.POST,"/orders/**").hasRole("USER")
+						.requestMatchers(HttpMethod.GET,"/orders/**").hasRole("ADMIN")
+						
 						.requestMatchers(HttpMethod.POST,"/address/**").hasRole("USER")
+						.requestMatchers(HttpMethod.GET,"/address/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE,"/address/**").hasRole("ADMIN")
+						
 						.requestMatchers(HttpMethod.POST,"/payments/**").hasRole("USER")
 						.anyRequest().authenticated());
 
