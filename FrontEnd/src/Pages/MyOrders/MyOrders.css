@@ -1,0 +1,40 @@
+.myOrders {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.myOrders h2 {
+  margin-bottom: 1rem;
+}
+
+.myOrdersList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.myOrders .orderCard {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fff;
+}
+
+.myOrders .orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.myOrders .orderBody ul {
+  margin: 0.5rem 0 0 1rem;
+  padding: 0;
+}
+
+.myOrders .orderBody li {
+  margin: 0.25rem 0;
+}

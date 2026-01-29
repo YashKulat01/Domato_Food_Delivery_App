@@ -72,11 +72,14 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public CartDTO getCartByUserId(Integer userId) {
-		// TODO Auto-generated method stub
-
-		Cart cart = cartRepository.findByUserId(userId).orElseThrow(() -> new NotFoundException("Cart Not Found !"));
-
-		return modelMapper.map(cart, CartDTO.class);
+		return cartRepository.findByUserId(userId)
+				.map(cart -> modelMapper.map(cart, CartDTO.class))
+				.orElseGet(() -> {
+					CartDTO dto = new CartDTO();
+					dto.setItems(List.of());
+					dto.setTotalPrice(0.0);
+					return dto;
+				});
 	}
 
 	@Override

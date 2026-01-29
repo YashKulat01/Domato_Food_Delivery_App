@@ -1,0 +1,149 @@
+.list {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.list h2 {
+  margin: 0;
+  padding: 1.5rem 1.5rem 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #1a1d29;
+}
+
+.listTable {
+  overflow-x: auto;
+  padding: 1rem 1.5rem 1.5rem;
+}
+
+.list table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.list thead {
+  background: #f9fafb;
+}
+
+.list th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.list td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  color: #4b5563;
+  vertical-align: middle;
+}
+
+.list tbody tr:hover {
+  background: #fafafa;
+}
+
+.list tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.list td img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #f3f4f6;
+}
+
+.list .deleteBtn {
+  padding: 0.4rem 0.875rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #fff;
+  background: #dc2626;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.list .deleteBtn:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+.list .deleteBtn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.list .deleteBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.listEmpty {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.listEmpty p {
+  margin: 0;
+}
+
+/* Responsive: table scrolls horizontally on small screens */
+@media (max-width: 768px) {
+  .list h2 {
+    padding: 1rem 1rem 0;
+    font-size: 1.2rem;
+  }
+
+  .listTable {
+    padding: 0.75rem 1rem 1rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .list table {
+    min-width: 500px;
+    font-size: 0.9rem;
+  }
+
+  .list th,
+  .list td {
+    padding: 0.6rem 0.75rem;
+  }
+
+  .list td img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .list .deleteBtn {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .list {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .list h2 {
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem 0;
+  }
+
+  .listTable {
+    padding: 0.5rem 0.75rem 0.75rem;
+  }
+
+  .list table {
+    min-width: 420px;
+  }
+}

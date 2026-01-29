@@ -38,6 +38,7 @@ public class SecurityConfig {
 		// CSRF DISABLED....
 		httpSecurity.csrf(csrf -> csrf.disable()).cors(Customizer.withDefaults())
 				.authorizeHttpRequests(request -> request
+						.requestMatchers("/uploads/**").permitAll()
 						.requestMatchers(HttpMethod.POST, "/users/register", "/auth/login").permitAll()
 						.requestMatchers(HttpMethod.GET,"/users/**").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.DELETE,"/users/**").hasRole("ADMIN")
@@ -51,11 +52,15 @@ public class SecurityConfig {
 						
 						.requestMatchers(HttpMethod.POST,"/cart/**").hasRole("USER")
 						.requestMatchers(HttpMethod.DELETE,"/cart/**").hasRole("USER")
-						.requestMatchers(HttpMethod.GET,"/cart/**").hasRole("ADMIN")
-						
+						.requestMatchers(HttpMethod.GET,"/cart/**").hasAnyRole("USER", "ADMIN")
 						
 						.requestMatchers(HttpMethod.POST,"/orders/**").hasRole("USER")
-						.requestMatchers(HttpMethod.GET,"/orders/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.GET,"/orders/get_orders/**").hasAnyRole("USER", "ADMIN")
+						.requestMatchers(HttpMethod.GET,"/orders/get_order/**").hasAnyRole("USER", "ADMIN")
+						.requestMatchers(HttpMethod.GET,"/orders/get_all").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.GET,"/orders/by_status/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.PUT,"/orders/**").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.DELETE,"/orders/**").hasRole("ADMIN")
 						
 						.requestMatchers(HttpMethod.POST,"/address/**").hasRole("USER")
 						.requestMatchers(HttpMethod.GET,"/address/**").hasRole("ADMIN")

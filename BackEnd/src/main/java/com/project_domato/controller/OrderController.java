@@ -68,13 +68,13 @@ public class OrderController {
 		return ResponseEntity.ok(orderService.cancelOrder(id));
 	}
 	
-	@GetMapping("orders/{status}")
+	@GetMapping("/by_status/{status}")
 	public ResponseEntity<List<OrderDTO>> getOrdersByStatus(@PathVariable OrderStatus status){
 		
 		return ResponseEntity.ok(orderService.getOrdersByStatus(status));
 	}
 	
-	@GetMapping("get_all")
+	@GetMapping("/get_all")
 	public ResponseEntity<List<OrderDTO>> getAllOrders(){
 		
 		return ResponseEntity.ok(orderService.getAllOrders());

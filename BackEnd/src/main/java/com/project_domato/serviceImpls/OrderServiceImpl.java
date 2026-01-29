@@ -81,21 +81,28 @@ public class OrderServiceImpl implements OrderService {
 
 		Order savedOrder = orderRepository.save(order);
 
-		return modelMapper.map(savedOrder, OrderDTO.class);
+		return toOrderDTO(savedOrder);
+	}
+
+	private OrderDTO toOrderDTO(Order order) {
+		OrderDTO dto = modelMapper.map(order, OrderDTO.class);
+		if (dto.getOrderItems() != null && order.getOrderItems() != null) {
+			for (int i = 0; i < order.getOrderItems().size() && i < dto.getOrderItems().size(); i++) {
+				dto.getOrderItems().get(i).setFoodName(order.getOrderItems().get(i).getFood().getFoodName());
+			}
+		}
+		return dto;
 	}
 
 	@Override
 	public List<OrderDTO> getOrdersByUser(Integer userId) {
-		// TODO Auto-generated method stub
-		return orderRepository.findByUserId(userId).stream().map((r) -> modelMapper.map(r, OrderDTO.class)).toList();
+		return orderRepository.findByUserId(userId).stream().map(this::toOrderDTO).toList();
 	}
 
 	@Override
 	public OrderDTO getOrderById(Integer orderId) {
-		// TODO Auto-generated method stub
 		Order order = orderRepository.findById(orderId).orElseThrow(() -> new NotFoundException("Order not Found !"));
-
-		return modelMapper.map(order, OrderDTO.class);
+		return toOrderDTO(order);
 	}
 
 	@Override
@@ -108,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
 
 		Order savedOrder = orderRepository.save(order);
 
-		return modelMapper.map(savedOrder, OrderDTO.class);
+		return toOrderDTO(savedOrder);
 	}
 
 	@Override
@@ -120,7 +127,7 @@ public class OrderServiceImpl implements OrderService {
 
 		Order savedOrder = orderRepository.save(order);
 
-		return modelMapper.map(savedOrder, OrderDTO.class);
+		return toOrderDTO(savedOrder);
 	}
 
 	@Override
@@ -144,21 +151,19 @@ public class OrderServiceImpl implements OrderService {
 
 		Order savedOrder = orderRepository.save(order);
 
-		return modelMapper.map(savedOrder, OrderDTO.class);
+		return toOrderDTO(savedOrder);
 	}
 
 	@Override
 	public List<OrderDTO> getOrdersByStatus(OrderStatus orderStatus) {
 		// TODO Auto-generated method stub
 
-		return orderRepository.findByOrderStatus(orderStatus).stream().map((r) -> modelMapper.map(r, OrderDTO.class))
-				.toList();
+		return orderRepository.findByOrderStatus(orderStatus).stream().map(this::toOrderDTO).toList();
 	}
 
 	@Override
 	public List<OrderDTO> getAllOrders() {
-		// TODO Auto-generated method stub
-		return orderRepository.findAll().stream().map((r) -> modelMapper.map(r, OrderDTO.class)).toList();
+		return orderRepository.findAll().stream().map(this::toOrderDTO).toList();
 	}
 
 	@Override

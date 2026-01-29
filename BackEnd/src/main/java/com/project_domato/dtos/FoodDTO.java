@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 
 public class FoodDTO {
 	
+	private Integer foodId;
 	private String foodName;
 	private String foodImg;
 	private Double foodPrice;
 	private String foodDesc;
-//	private Category category;
 	private FoodCategory foodCategory;
 }

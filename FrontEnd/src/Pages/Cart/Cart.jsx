@@ -1,19 +1,20 @@
-import React, { useContext } from 'react'
-
-import './Cart.css'
-import { storeContext } from '../../Components/Context/StoredContext'
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from "react";
+import "./Cart.css";
+import { storeContext } from "../../Components/Context/StoredContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
-
-  // USE CONTEXT SECTION
-  const { cartItems, food_list, removeFromCart, getTotalCartAmount} = useContext(storeContext);
-
-  //NAVIGATE SECTION...
-  const navigate = useNavigate(); 
+  const { cartItems, food_list, removeFromCart, getTotalCartAmount, user } =
+    useContext(storeContext);
+  const navigate = useNavigate();
 
   return (
-    <div className='cart'>
+    <div className="cart">
+      {!user && (
+        <p style={{ padding: "1rem", textAlign: "center" }}>
+          Please log in to view and manage your cart.
+        </p>
+      )}
       <div className="cartItems">
         <div className="cartItemsTitle">
           <p>Items</p>
@@ -26,25 +27,29 @@ export default function Cart() {
         <br />
         <hr />
         {food_list.map((item, index) => {
-          if (cartItems[item._id] > 0) {
+          const qty = cartItems[item._id] || cartItems[item.foodId];
+          if (qty > 0) {
             return (
-              <div key={index}>
+              <div key={item.foodId ?? item._id ?? index}>
                 <div className="cartItemsTitle cartItemsItem">
                   <img src={item.image} alt="" />
                   <p>{item.name}</p>
                   <p>${item.price}</p>
-                  <p>{cartItems[item._id]}</p>
-                  <p>${item.price * cartItems[item._id]}</p>
-                  <p className='cross'
-                    onClick={() => removeFromCart(item._id)}
-                    title='Remove item'>
+                  <p>{qty}</p>
+                  <p>${(item.price * qty).toFixed(2)}</p>
+                  <p
+                    className="cross"
+                    onClick={() => removeFromCart(item._id ?? item.foodId)}
+                    title="Remove item"
+                  >
                     X
                   </p>
                 </div>
                 <hr />
               </div>
-            )
+            );
           }
+          return null;
         })}
       </div>
       {/* Cart Bottom details..................... */}
@@ -68,7 +73,12 @@ export default function Cart() {
               <b>${getTotalCartAmount()===0?0: getTotalCartAmount() + 2}</b>
             </div>
           </div>
-          <button onClick={()=>navigate('/placeOrder')}>Proceed To Checkout</button>
+          <button
+            onClick={() => navigate("/placeOrder")}
+            disabled={!user || getTotalCartAmount() === 0}
+          >
+            Proceed To Checkout
+          </button>
         </div>
         {/* Promo Code section......................... */}
         <div className="cartPromoCode">

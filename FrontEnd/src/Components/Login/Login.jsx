@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { assets } from "../../assets/assets";
+import { api } from "../../api";
 
 export default function Login({ setLogin }) {
+  const navigate = useNavigate();
   const [currState, setCurrState] = useState("Sign Up");
-
-  const [isLoginIn, isSetLogin] = useState(false);
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,100 +14,78 @@ export default function Login({ setLogin }) {
     phoneNo: "",
     agree: false
   });
-
   const [errors, setErrors] = useState({});
 
-  // handle input change
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value
     });
   };
 
-useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      isSetLogin(true);
-    }
-  }, []);
-
-
-
-  // validation logic
   const validate = () => {
     let newErrors = {};
-
     if (currState === "Sign Up" && !formData.name.trim()) {
       newErrors.name = "Name is required";
     }
-
+    if (currState === "Sign Up" && !formData.phoneNo.trim()) {
+      newErrors.phoneNo = "Phone is required";
+    }
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Invalid email format";
     }
-
     if (!formData.password) {
       newErrors.password = "Password is required";
     } else if (formData.password.length < 8) {
       newErrors.password = "Password must be at least 8 characters";
     }
-
-    if (!formData.agree) {
+    if (currState === "Sign Up" && !formData.agree) {
       newErrors.agree = "You must accept terms & conditions";
     }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // // submit
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   if (validate()) {
-  //   //   alert(`${currState} successful`);
-  //   //   console.log(formData);
-  //   }
-  // };
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
 
-    if (validate()) {
-      const endpoint =
-        currState === "Sign Up"
-          ? "http://localhost:8080/users/register"
-          : "http://localhost:8080/auth/login";
-
-      try {
-        const response = await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          alert(`${currState} successful`);
-          console.log("Response:", data);
-
-          // Save JWT token if login
-          if (currState === "Login") {
-            localStorage.setItem("token", data.token);
-          }
-        } else {
-          setErrors({ api: data.message || "Something went wrong" });
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        setErrors({ api: "Server error. Try again later." });
+    try {
+      if (currState === "Sign Up") {
+        const payload = {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          phoneNo: formData.phoneNo
+        };
+        await api.post("/users/register", payload);
+        alert("Account created! Please login.");
+        setCurrState("Login");
+        return;
       }
+
+      const { data } = await api.post("/auth/login", {
+        email: formData.email,
+        password: formData.password
+      });
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.userDto));
+      setLogin(false);
+
+      const role = data.userDto?.role?.roleName;
+      if (role === "ROLE_ADMIN") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+      window.dispatchEvent(new Event("storage"));
+    } catch (error) {
+      const msg = error.response?.data?.message || error.response?.data?.error || "Something went wrong.";
+      setErrors({ api: msg });
     }
   };
 
@@ -164,7 +142,8 @@ useEffect(() => {
           {errors.password && <p className="error">{errors.password}</p>}
         </div>
 
-        <button type="submit" onClick={()=>isSetLogin(true)}>
+        {errors.api && <p className="error">{errors.api}</p>}
+        <button type="submit">
           {currState === "Sign Up" ? "Create account" : "Login"}
         </button>
 

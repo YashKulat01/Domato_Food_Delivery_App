@@ -57,7 +57,11 @@
 }
 
 .foodItemImageCont .add {
-    width: 35px;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    object-fit: contain;
 
     position: absolute;
     bottom: 15px;
@@ -66,6 +70,9 @@
     cursor: pointer;
 
     border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 6px;
+    box-sizing: border-box;
 }
 
 .foodItemCounter{
