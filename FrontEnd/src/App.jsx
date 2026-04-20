@@ -5,6 +5,7 @@ import Home from "./Pages/Home/Home";
 import PlaceOrder from "./Pages/PlaceOrder/PlaceOrder";
 import Cart from "./Pages/Cart/Cart";
 import MyOrders from "./Pages/MyOrders/MyOrders";
+import Payment from "./Pages/Payment/Payment";
 import StoreContextProvider from "./Components/Context/StoredContext";
 import Admin from "./admin/Admin";
 import Add from "./admin/Pages/add/Add";
@@ -31,6 +32,7 @@ export default function App() {
         { path: "/", element: <Home /> },
         { path: "/cart", element: <Cart /> },
         { path: "/placeOrder", element: <PlaceOrder /> },
+        { path: "/payment/:orderId", element: <Payment /> },
         { path: "/my-orders", element: <MyOrders /> },
       ],
     },

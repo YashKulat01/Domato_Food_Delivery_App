@@ -25,4 +25,8 @@ public class PaymentDTO {
 	private Double amount;
 	
 	private LocalDateTime localDateTime;
+
+	private String razorpayOrderId;
+
+	private String razorpayPaymentId;
 }

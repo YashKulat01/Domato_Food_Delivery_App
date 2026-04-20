@@ -27,10 +27,11 @@ export default function PlaceOrder() {
     setError("");
     setPlacing(true);
     try {
-      await api.post(`/orders/place/${user.id}`);
+      const res = await api.post(`/orders/place/${user.id}`);
+      const orderId = res.data.id;
       refreshCart();
-      alert("Order placed successfully!");
-      navigate("/my-orders");
+      // navigate to payment page for the created order
+      navigate(`/payment/${orderId}`);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to place order.");
     } finally {

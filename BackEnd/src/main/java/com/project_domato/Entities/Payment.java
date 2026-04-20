@@ -34,6 +34,10 @@ public class Payment {
 	private Double amount;
 	
 	private String method;
+
+	private String razorpayOrderId;
+
+	private String razorpayPaymentId;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JsonBackReference
