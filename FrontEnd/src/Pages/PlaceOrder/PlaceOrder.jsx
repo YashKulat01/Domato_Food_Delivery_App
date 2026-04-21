@@ -9,13 +9,64 @@ export default function PlaceOrder() {
   const { getTotalCartAmount, user, refreshCart } = useContext(storeContext);
   const [placing, setPlacing] = useState(false);
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: user?.email || "",
+    street: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "",
+    phone: user?.phoneNo || "",
+  });
 
   const subtotal = getTotalCartAmount();
   const deliveryFee = subtotal === 0 ? 0 : 2;
   const total = subtotal + deliveryFee;
 
+  const validateForm = () => {
+    const errors = {};
+
+    if (!formData.firstName.trim()) errors.firstName = "First name is required.";
+    if (!formData.lastName.trim()) errors.lastName = "Last name is required.";
+    if (!formData.email.trim()) {
+      errors.email = "Email is required.";
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      errors.email = "Please enter a valid email.";
+    }
+    if (!formData.street.trim()) errors.street = "Street is required.";
+    if (!formData.city.trim()) errors.city = "City is required.";
+    if (!formData.state.trim()) errors.state = "State is required.";
+    if (!formData.zipCode.trim()) {
+      errors.zipCode = "Zip code is required.";
+    } else if (!/^\d{6}$/.test(formData.zipCode)) {
+      errors.zipCode = "Zip code must be exactly 6 digits.";
+    }
+    if (!formData.country.trim()) errors.country = "Country is required.";
+    if (!formData.phone.trim()) {
+      errors.phone = "Phone number is required.";
+    } else if (!/^\d{10,}$/.test(formData.phone)) {
+      errors.phone = "Phone number must be at least 10 digits.";
+    }
+
+    return errors;
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFieldErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      setFieldErrors(validationErrors);
+      return;
+    }
     if (!user?.id) {
       setError("Please log in to place an order.");
       return;
@@ -54,22 +105,113 @@ export default function PlaceOrder() {
       <div className="placeOrderLeft">
         <p className="title">Delivery Information</p>
         <div className="multiFields">
-          <input type="text" placeholder="First Name" />
-          <input type="text" placeholder="Last Name" />
+          <div className="inputWrap">
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              value={formData.firstName}
+              onChange={handleInputChange}
+              className={fieldErrors.firstName ? "inputError" : ""}
+            />
+            {fieldErrors.firstName && <small className="errorText">{fieldErrors.firstName}</small>}
+          </div>
+          <div className="inputWrap">
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              className={fieldErrors.lastName ? "inputError" : ""}
+            />
+            {fieldErrors.lastName && <small className="errorText">{fieldErrors.lastName}</small>}
+          </div>
         </div>
-        <input type="email" placeholder="Email Address" defaultValue={user.email} />
-        <input type="text" placeholder="Street" />
+        <div className="inputWrap">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={formData.email}
+            onChange={handleInputChange}
+            className={fieldErrors.email ? "inputError" : ""}
+          />
+          {fieldErrors.email && <small className="errorText">{fieldErrors.email}</small>}
+        </div>
+        <div className="inputWrap">
+          <input
+            type="text"
+            name="street"
+            placeholder="Street"
+            value={formData.street}
+            onChange={handleInputChange}
+            className={fieldErrors.street ? "inputError" : ""}
+          />
+          {fieldErrors.street && <small className="errorText">{fieldErrors.street}</small>}
+        </div>
 
         <div className="multiFields">
-          <input type="text" placeholder="City" />
-          <input type="text" placeholder="State" />
+          <div className="inputWrap">
+            <input
+              type="text"
+              name="city"
+              placeholder="City"
+              value={formData.city}
+              onChange={handleInputChange}
+              className={fieldErrors.city ? "inputError" : ""}
+            />
+            {fieldErrors.city && <small className="errorText">{fieldErrors.city}</small>}
+          </div>
+          <div className="inputWrap">
+            <input
+              type="text"
+              name="state"
+              placeholder="State"
+              value={formData.state}
+              onChange={handleInputChange}
+              className={fieldErrors.state ? "inputError" : ""}
+            />
+            {fieldErrors.state && <small className="errorText">{fieldErrors.state}</small>}
+          </div>
         </div>
 
         <div className="multiFields">
-          <input type="text" placeholder="Zip code" />
-          <input type="text" placeholder="Country" />
+          <div className="inputWrap">
+            <input
+              type="text"
+              name="zipCode"
+              placeholder="Zip code"
+              value={formData.zipCode}
+              onChange={handleInputChange}
+              maxLength={6}
+              className={fieldErrors.zipCode ? "inputError" : ""}
+            />
+            {fieldErrors.zipCode && <small className="errorText">{fieldErrors.zipCode}</small>}
+          </div>
+          <div className="inputWrap">
+            <input
+              type="text"
+              name="country"
+              placeholder="Country"
+              value={formData.country}
+              onChange={handleInputChange}
+              className={fieldErrors.country ? "inputError" : ""}
+            />
+            {fieldErrors.country && <small className="errorText">{fieldErrors.country}</small>}
+          </div>
         </div>
-        <input type="text" placeholder="Phone" defaultValue={user.phoneNo} />
+        <div className="inputWrap">
+          <input
+            type="text"
+            name="phone"
+            placeholder="Phone"
+            value={formData.phone}
+            onChange={handleInputChange}
+            className={fieldErrors.phone ? "inputError" : ""}
+          />
+          {fieldErrors.phone && <small className="errorText">{fieldErrors.phone}</small>}
+        </div>
       </div>
 
       <div className="placeOrderRight">

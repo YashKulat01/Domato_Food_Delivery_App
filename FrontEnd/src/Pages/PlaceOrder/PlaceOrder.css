@@ -35,6 +35,26 @@
     gap: 10px;
 }
 
+.placeOrderLeft .multiFields .inputWrap{
+    width: 100%;
+}
+
+.inputWrap{
+    display: flex;
+    flex-direction: column;
+}
+
+.placeOrderLeft input.inputError{
+    border-color: #e53935;
+}
+
+.errorText{
+    color: #e53935;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
 .placeOrderRight{
     width: 100%;
     max-width: max(40%,500px);
