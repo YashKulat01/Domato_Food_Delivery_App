@@ -1,6 +1,7 @@
 package com.project_domato.controller;
 
 import java.util.HashMap;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project_domato.Entities.Order;
 import com.project_domato.Entities.Payment;
+import com.project_domato.enums.OrderStatus;
+import com.project_domato.enums.PaymentStatus;
 import com.project_domato.repositories.OrderRepository;
 import com.project_domato.repositories.PaymentRepository;
 import com.project_domato.services.EmailService;
@@ -51,7 +54,7 @@ public class RazorpayController {
 			Payment payment = new Payment();
 			payment.setAmount(amount);
 			payment.setMethod("RAZORPAY");
-			payment.setPayementStatus(com.project_domato.enums.PaymentStatus.PENDING);
+			payment.setPayementStatus(PaymentStatus.PENDING);
 			payment.setOrder(order);
 			payment.setRazorpayOrderId(ro.get("id"));
 			paymentRepository.save(payment);
@@ -80,16 +83,23 @@ public class RazorpayController {
 			boolean valid = razorpayService.verifyPayment(paymentId, orderId, signature);
 			if (valid) {
 				Payment payment = paymentRepository.findByOrderId(Integer.parseInt(internalOrderId)).orElseThrow();
-				payment.setPayementStatus(com.project_domato.enums.PaymentStatus.SUCCESS);
+				payment.setPayementStatus(PaymentStatus.SUCCESS);
 				payment.setRazorpayPaymentId(paymentId);
 				payment.setRazorpayOrderId(orderId);
+				payment.setPaymentDate(LocalDateTime.now());
 				Payment savedPayment = paymentRepository.save(payment);
 				if (savedPayment.getOrder() != null) {
+					Order paidOrder = savedPayment.getOrder();
+					paidOrder.setOrderStatus(OrderStatus.CONFIRMED);
+					orderRepository.save(paidOrder);
 					emailService.sendOrderPlacedEmail(savedPayment.getOrder());
 				}
 				resp.put("message", "Payment verified");
 				return ResponseEntity.ok(resp);
 			} else {
+				if (internalOrderId != null) {
+					markPaymentFailedAndCancelOrder(Integer.parseInt(internalOrderId));
+				}
 				resp.put("message", "Payment verification failed");
 				return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
 			}
@@ -98,6 +108,36 @@ public class RazorpayController {
 			resp.put("message", "Error verifying payment");
 			return new ResponseEntity<>(resp, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	@PostMapping("/fail")
+	public ResponseEntity<Map<String, String>> markPaymentFailed(@RequestBody Map<String, String> payload) {
+		Map<String, String> resp = new HashMap<>();
+		try {
+			String internalOrderId = payload.get("internalOrderId");
+			if (internalOrderId == null) {
+				resp.put("message", "internalOrderId is required");
+				return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+			}
+			markPaymentFailedAndCancelOrder(Integer.parseInt(internalOrderId));
+			resp.put("message", "Payment marked failed and order cancelled");
+			return ResponseEntity.ok(resp);
+		} catch (Exception e) {
+			e.printStackTrace();
+			resp.put("message", "Error marking payment failed");
+			return new ResponseEntity<>(resp, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	private void markPaymentFailedAndCancelOrder(Integer internalOrderId) {
+		paymentRepository.findByOrderId(internalOrderId).ifPresent(payment -> {
+			payment.setPayementStatus(PaymentStatus.FAILED);
+			paymentRepository.save(payment);
+		});
+		orderRepository.findById(internalOrderId).ifPresent(order -> {
+			order.setOrderStatus(OrderStatus.CANCELLED);
+			orderRepository.save(order);
+		});
 	}
 
 }

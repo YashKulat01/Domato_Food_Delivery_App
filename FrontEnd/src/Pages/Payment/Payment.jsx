@@ -22,6 +22,14 @@ export default function Payment() {
         document.body.appendChild(script);
 
         script.onload = () => {
+          const markPaymentFailed = async () => {
+            try {
+              await api.post(`/razorpay/fail`, { internalOrderId: orderId });
+            } catch (failErr) {
+              console.error("Failed to mark payment as failed:", failErr);
+            }
+          };
+
           const options = {
             key: data.key,
             amount: data.amount,
@@ -42,9 +50,17 @@ export default function Payment() {
                 navigate("/my-orders");
               } catch (err) {
                 console.error(err);
+                await markPaymentFailed();
                 alert("Payment verification failed");
                 navigate("/my-orders");
               }
+            },
+            modal: {
+              ondismiss: async function () {
+                await markPaymentFailed();
+                alert("Payment cancelled. Order was not placed.");
+                navigate("/cart");
+              },
             },
             prefill: {
               // optional: prefill customer info
@@ -61,6 +77,11 @@ export default function Payment() {
         setLoading(false);
       } catch (err) {
         console.error(err);
+        try {
+          await api.post(`/razorpay/fail`, { internalOrderId: orderId });
+        } catch (failErr) {
+          console.error("Failed to mark payment as failed:", failErr);
+        }
         setError("Failed to create payment order");
         setLoading(false);
       }
