@@ -16,6 +16,7 @@ import com.project_domato.Entities.Order;
 import com.project_domato.Entities.Payment;
 import com.project_domato.repositories.OrderRepository;
 import com.project_domato.repositories.PaymentRepository;
+import com.project_domato.services.EmailService;
 import com.project_domato.services.RazorpayService;
 import com.razorpay.RazorpayException;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +33,9 @@ public class RazorpayController {
 
 	@Autowired
 	private PaymentRepository paymentRepository;
+	
+	@Autowired
+	private EmailService emailService;
 
 	@Value("${Razorpay.key}")
 	private String razorpayKey;
@@ -79,7 +83,10 @@ public class RazorpayController {
 				payment.setPayementStatus(com.project_domato.enums.PaymentStatus.SUCCESS);
 				payment.setRazorpayPaymentId(paymentId);
 				payment.setRazorpayOrderId(orderId);
-				paymentRepository.save(payment);
+				Payment savedPayment = paymentRepository.save(payment);
+				if (savedPayment.getOrder() != null) {
+					emailService.sendOrderPlacedEmail(savedPayment.getOrder());
+				}
 				resp.put("message", "Payment verified");
 				return ResponseEntity.ok(resp);
 			} else {

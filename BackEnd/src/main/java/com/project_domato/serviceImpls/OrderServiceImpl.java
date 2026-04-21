@@ -19,6 +19,7 @@ import com.project_domato.enums.OrderStatus;
 import com.project_domato.repositories.CartRepository;
 import com.project_domato.repositories.OrderRepository;
 import com.project_domato.repositories.UserRepository;
+import com.project_domato.services.EmailService;
 import com.project_domato.services.OrderService;
 
 @Service
@@ -35,6 +36,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private EmailService emailService;
 
 	@Override
 	public OrderDTO placeOrder(Integer userId) {
@@ -124,6 +128,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setOrderStatus(OrderStatus.CONFIRMED);
 
 		Order savedOrder = orderRepository.save(order);
+		emailService.sendOrderStatusEmail(savedOrder);
 
 		return toOrderDTO(savedOrder);
 	}
@@ -136,6 +141,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setOrderStatus(OrderStatus.PREPARING);
 
 		Order savedOrder = orderRepository.save(order);
+		emailService.sendOrderStatusEmail(savedOrder);
 
 		return toOrderDTO(savedOrder);
 	}
@@ -148,6 +154,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setOrderStatus(OrderStatus.DELIVERED);
 
 		Order savedOrder = orderRepository.save(order);
+		emailService.sendOrderStatusEmail(savedOrder);
 
 		return modelMapper.map(savedOrder, OrderDTO.class);
 	}
@@ -160,6 +167,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setOrderStatus(OrderStatus.CANCELLED);
 
 		Order savedOrder = orderRepository.save(order);
+		emailService.sendOrderStatusEmail(savedOrder);
 
 		return toOrderDTO(savedOrder);
 	}
