@@ -61,6 +61,7 @@ public class OrderServiceImpl implements OrderService {
 			OrderItems items = new OrderItems();
 
 			items.setFood(cartItem.getFood());
+			items.setFoodName(cartItem.getFood().getFoodName());
 
 			items.setQuantity(cartItem.getQuantity());
 			items.setPrice(cartItem.getFood().getFoodPrice());
@@ -88,7 +89,16 @@ public class OrderServiceImpl implements OrderService {
 		OrderDTO dto = modelMapper.map(order, OrderDTO.class);
 		if (dto.getOrderItems() != null && order.getOrderItems() != null) {
 			for (int i = 0; i < order.getOrderItems().size() && i < dto.getOrderItems().size(); i++) {
-				dto.getOrderItems().get(i).setFoodName(order.getOrderItems().get(i).getFood().getFoodName());
+				OrderItems orderItem = order.getOrderItems().get(i);
+				if (orderItem.getFood() != null) {
+					dto.getOrderItems().get(i).setFoodName(orderItem.getFood().getFoodName());
+					dto.getOrderItems().get(i).setFoodId(orderItem.getFood().getFoodId());
+					dto.getOrderItems().get(i).setFoodPrice(orderItem.getFood().getFoodPrice());
+				} else {
+					dto.getOrderItems().get(i).setFoodName(
+							orderItem.getFoodName() != null ? orderItem.getFoodName() : "Removed item");
+					dto.getOrderItems().get(i).setFoodPrice(orderItem.getPrice());
+				}
 			}
 		}
 		return dto;

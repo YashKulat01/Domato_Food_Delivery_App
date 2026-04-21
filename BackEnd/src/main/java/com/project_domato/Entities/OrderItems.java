@@ -24,6 +24,7 @@ public class OrderItems {
 	
 	private Integer quantity;
 	private Double price;
+	private String foodName;
 	
 	@ManyToOne
 	@JoinColumn(name = "food_id")

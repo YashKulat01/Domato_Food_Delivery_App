@@ -33,6 +33,9 @@ public class Food {
 	@Column(nullable = false)
 	private String foodDesc;
 	
+	@Column(nullable = false)
+	private boolean deleted = false;
+	
 	@ManyToOne
 	@JsonManagedReference
 	private Category category;

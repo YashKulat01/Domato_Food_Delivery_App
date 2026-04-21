@@ -11,7 +11,9 @@ import com.project_domato.enums.FoodCategory;
 
 public interface FoodRepository extends JpaRepository<Food, Integer>{
 
-	List<Food> getFoodByCategory(FoodCategory foodCategory);
+	List<Food> getFoodByCategoryAndDeletedFalse(FoodCategory foodCategory);
 	
-	Optional<Food>findByFoodName(String foodName);
+	Optional<Food> findByFoodNameAndDeletedFalse(String foodName);
+
+	List<Food> findByDeletedFalse();
 }
