@@ -90,7 +90,7 @@ public class RazorpayController {
 				Payment savedPayment = paymentRepository.save(payment);
 				if (savedPayment.getOrder() != null) {
 					Order paidOrder = savedPayment.getOrder();
-					paidOrder.setOrderStatus(OrderStatus.CONFIRMED);
+					paidOrder.setOrderStatus(OrderStatus.PLACED);
 					orderRepository.save(paidOrder);
 					emailService.sendOrderPlacedEmail(savedPayment.getOrder());
 				}

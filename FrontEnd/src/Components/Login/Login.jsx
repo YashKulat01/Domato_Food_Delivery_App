@@ -42,7 +42,10 @@ export default function Login({ setLogin }) {
     } else if (formData.password.length < 8) {
       newErrors.password = "Password must be at least 8 characters";
     }
-    if (currState === "Sign Up" ||currState ==="Login" && !formData.agree) {
+    if (currState === "Sign Up"&& !formData.agree) {
+      newErrors.agree = "You must accept terms & conditions";
+    }
+    if (currState === "Login"&& !formData.agree) {
       newErrors.agree = "You must accept terms & conditions";
     }
     setErrors(newErrors);
