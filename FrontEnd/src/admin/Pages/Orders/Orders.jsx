@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import "./Orders.css";
 import { api } from "../../../api";
+
+const orangeToast = { style: { background: "#f97316", color: "#fff" } };
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
@@ -27,7 +30,7 @@ export default function Orders() {
       await api.put(`/orders/${orderId}/${action}`);
       await fetchOrders();
     } catch (e) {
-      alert(e.response?.data?.message || "Failed to update");
+      toast(e.response?.data?.message || "Failed to update", orangeToast);
     }
   };
 

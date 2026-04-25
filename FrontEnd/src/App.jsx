@@ -1,5 +1,7 @@
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import "./App.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Layout from "./Pages/Routes/Layout";
 import Home from "./Pages/Home/Home";
 import PlaceOrder from "./Pages/PlaceOrder/PlaceOrder";
@@ -55,6 +57,11 @@ export default function App() {
     <div className='app'>
       <StoreContextProvider>
         <RouterProvider router={routes} />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          toastStyle={{ background: "#f97316", color: "#fff" }}
+        />
       </StoreContextProvider>
     </div>
   )

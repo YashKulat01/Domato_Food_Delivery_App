@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import "./List.css";
 import { api } from "../../../api";
 import { storeContext } from "../../../Components/Context/StoredContext";
 
 const BASE_URL = "http://localhost:8080";
+const orangeToast = { style: { background: "#f97316", color: "#fff" } };
 
 export default function List() {
   const { loadFoods, food_list } = useContext(storeContext);
@@ -20,7 +22,7 @@ export default function List() {
       await api.delete(`/food/del_food/${encodeURIComponent(foodName)}`);
       await loadFoods();
     } catch (e) {
-      alert(e.response?.data?.message || "Failed to delete");
+      toast(e.response?.data?.message || "Failed to delete", orangeToast);
     } finally {
       setLoading(false);
     }

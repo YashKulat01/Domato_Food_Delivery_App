@@ -50,11 +50,11 @@
 }
 
 .sidebarLabel {
-  font-size: 0.7rem;
+  font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #6b7280;
+  color: #ffffff;
   padding: 0.5rem 1rem 0.25rem;
   margin-top: 0.5rem;
 }

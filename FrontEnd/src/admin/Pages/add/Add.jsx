@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import "./Add.css";
 import { assets } from "../../../assets/assets";
 import { api } from "../../../api";
@@ -14,6 +15,7 @@ const categoryOptions = [
   "Pasta",
   "Noodles",
 ];
+const orangeToast = { style: { background: "#f97316", color: "#fff" } };
 
 export default function Add() {
   const [image, setImage] = useState(null);
@@ -50,7 +52,7 @@ export default function Add() {
       await api.post("/food/add_food_with_image", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      alert("Food added successfully!");
+      toast("Food added successfully!", orangeToast);
       form.reset();
       setImage(null);
     } catch (err) {

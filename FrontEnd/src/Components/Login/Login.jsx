@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./Login.css";
 import { assets } from "../../assets/assets";
 import { api } from "../../api";
 
 export default function Login({ setLogin }) {
+  const orangeToast = { style: { background: "#f97316", color: "#fff" } };
   const navigate = useNavigate();
   const [currState, setCurrState] = useState("Sign Up");
   const [formData, setFormData] = useState({
@@ -65,7 +67,7 @@ export default function Login({ setLogin }) {
           phoneNo: formData.phoneNo
         };
         await api.post("/users/register", payload);
-        alert("Account created! Please login.");
+        toast("Account created! Please login.", orangeToast);
         setCurrState("Login");
         return;
       }
@@ -78,7 +80,7 @@ export default function Login({ setLogin }) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.userDto));
       setLogin(false);
-      alert(`Welcome ${data.userDto?.name || "User"} !`);
+      toast(`Welcome ${data.userDto?.name || "User"} !`, orangeToast);
 
       const role = data.userDto?.role?.roleName;
       if (role === "ROLE_ADMIN") {

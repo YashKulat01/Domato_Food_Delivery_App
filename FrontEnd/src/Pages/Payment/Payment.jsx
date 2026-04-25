@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { api } from "../../api";
+
+const orangeToast = { style: { background: "#f97316", color: "#fff" } };
 
 export default function Payment() {
   const { orderId } = useParams();
@@ -46,19 +49,19 @@ export default function Payment() {
                   signature: response.razorpay_signature,
                   internalOrderId: orderId,
                 });
-                alert("Payment successful");
+                toast("Payment successful", orangeToast);
                 navigate("/my-orders");
               } catch (err) {
                 console.error(err);
                 await markPaymentFailed();
-                alert("Payment verification failed");
+                toast("Payment verification failed", orangeToast);
                 navigate("/my-orders");
               }
             },
             modal: {
               ondismiss: async function () {
                 await markPaymentFailed();
-                alert("Payment cancelled. Order was not placed.");
+                toast("Payment cancelled. Order was not placed.", orangeToast);
                 navigate("/cart");
               },
             },

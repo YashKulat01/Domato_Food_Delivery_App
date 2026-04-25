@@ -1,8 +1,10 @@
 import { createContext, useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { api } from "../../api";
 import { backendToFrontendCategory } from "../../utils/categoryMap";
 
 const BASE_URL = "http://localhost:8080";
+const orangeToast = { style: { background: "#f97316", color: "#fff" } };
 
 export const storeContext = createContext(null);
 
@@ -82,7 +84,7 @@ const StoreContextProvider = (props) => {
   const addToCart = async (itemId) => {
     const foodId = typeof itemId === "number" ? itemId : parseInt(itemId, 10);
     if (!user?.id) {
-      alert("Please login to add to cart");
+      toast("Please login to add to cart", orangeToast);
       return;
     }
     try {
@@ -92,7 +94,7 @@ const StoreContextProvider = (props) => {
       setCartItems((prev) => ({ ...prev, [foodId]: (prev[foodId] || 0) + 1 }));
     } catch (e) {
       console.error(e);
-      alert(e.response?.data?.message || "Failed to add to cart");
+      toast(e.response?.data?.message || "Failed to add to cart", orangeToast);
     }
   };
 
