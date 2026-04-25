@@ -85,6 +85,11 @@
     background-color: #faebe8;
 }
 
+.userSection{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 
 /* Media Queries................. */
 

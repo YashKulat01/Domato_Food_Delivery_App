@@ -36,11 +36,18 @@ export default function NavBar({ setLogin }) {
           </Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
         </div>
-        {user ? (
-          <button onClick={handleLogout}>Logout</button>
-        ) : (
-          <button onClick={() => setLogin(true)}>Sign in</button>
-        )}
+        <div className="userSection">
+          {user ? (
+            <>
+              <div className="usernameSection">
+                <>{user.name}</>
+              </div>
+              <button onClick={handleLogout}>Logout</button>
+            </>
+          ) : (
+            <button onClick={() => setLogin(true)}>Sign in</button>
+          )}
+        </div>
       </div>
     </div>
   );

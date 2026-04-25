@@ -78,10 +78,11 @@ export default function Login({ setLogin }) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.userDto));
       setLogin(false);
+      alert(`Welcome ${data.userDto?.name || "User"} !`);
 
       const role = data.userDto?.role?.roleName;
       if (role === "ROLE_ADMIN") {
-        navigate("/admin");
+        navigate("/admin/add");
       } else {
         navigate("/");
       }
