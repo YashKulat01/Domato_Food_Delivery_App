@@ -40,6 +40,7 @@ export default function NavBar({ setLogin }) {
           {user ? (
             <>
               <div className="usernameSection">
+                <div><img src={assets.profile_icon  } alt="" /></div>
                 <>{user.name}</>
               </div>
               <button onClick={handleLogout}>Logout</button>

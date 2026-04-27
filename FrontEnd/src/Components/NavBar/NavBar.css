@@ -85,7 +85,7 @@
     background-color: #faebe8;
 }
 
-.userSection{
+.userSection,.usernameSection{
     display: flex;
     align-items: center;
     gap: 20px;

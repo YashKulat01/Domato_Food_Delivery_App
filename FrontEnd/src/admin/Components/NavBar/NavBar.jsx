@@ -25,10 +25,10 @@ export default function NavBar({ onMenuClick }) {
         <span />
         <span />
       </button>
-      <img className="logo" src={assets.logo} alt="Domato" />
+      <img className="logo" src={assets.logo} alt="Your Logo" />
       <span className="navbarTitle">Admin Panel</span>
       <div className="navbarRight">
-        <img className="profile" src={assets.profile_icon} alt="Profile" />
+        <img className="profile" src={assets.profile_image} alt="ProfileImg" />
         <button type="button" className="logoutBtn" onClick={handleLogout}>
           Logout
         </button>

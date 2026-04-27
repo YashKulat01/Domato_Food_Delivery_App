@@ -30,9 +30,16 @@ export default function Login({ setLogin }) {
     let newErrors = {};
     if (currState === "Sign Up" && !formData.name.trim()) {
       newErrors.name = "Name is required";
+    } else if (currState === "Sign Up" && formData.name.length < 3) {
+      newErrors.name = "Name should be atleast 3 characters."
     }
+
     if (currState === "Sign Up" && !formData.phoneNo.trim()) {
       newErrors.phoneNo = "Phone is required";
+    } else if (currState === "Sign Up" && formData.phoneNo.length < 10) {
+      newErrors.phoneNo = "Phone Number must be atleast 10 characters.";
+    } else if (currState === "Sign Up" && formData.phoneNo.length > 10) {
+      newErrors.phoneNo = "Phone Number must be atleast 10 characters.";
     }
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
@@ -44,10 +51,10 @@ export default function Login({ setLogin }) {
     } else if (formData.password.length < 8) {
       newErrors.password = "Password must be at least 8 characters";
     }
-    if (currState === "Sign Up"&& !formData.agree) {
+    if (currState === "Sign Up" && !formData.agree) {
       newErrors.agree = "You must accept terms & conditions";
     }
-    if (currState === "Login"&& !formData.agree) {
+    if (currState === "Login" && !formData.agree) {
       newErrors.agree = "You must accept terms & conditions";
     }
     setErrors(newErrors);
