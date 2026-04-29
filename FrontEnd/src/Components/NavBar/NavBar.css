@@ -4,6 +4,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    z-index: 30;
 }
 
 /* NavBar Logo Section -------------------------------------- */
@@ -29,6 +31,15 @@
 
 .navBar li {
     cursor: pointer;
+}
+
+.sidebarToggleButton,
+.sidebarCloseButton {
+    display: none;
+}
+
+.sidebarTopBrand {
+    display: none;
 }
 
 /* NavBar Right Section -------------------------------------- */
@@ -144,17 +155,123 @@
 
 /* For Mobile */
 @media (max-width:750px) {
+    .navBar {
+        padding: 16px 0px;
+    }
+
+    .sidebarToggleButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border: 1px solid tomato;
+        border-radius: 10px;
+        font-size: 24px;
+        color: tomato;
+        background: #fff5f2;
+        cursor: pointer;
+        order: -1;
+        margin-right: 12px;
+    }
+
+    .sidebarToggleButton:hover {
+        background: #faebe8;
+    }
+
     .navBarMenu {
-        display: none;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        position: fixed;
+        top: 0;
+        left: -270px;
+        width: 260px;
+        height: 100vh;
+        padding: 24px 25px 25px;
+        background: linear-gradient(180deg, #fff9f7 0%, #fff1ec 100%);
+        box-shadow: 4px 0 20px rgba(255, 99, 71, 0.2);
+        transition: left 0.3s ease;
+        z-index: 70;
+    }
+
+    .navBarMenu.sidebarOpen {
+        left: 0;
+    }
+
+    .sidebarTopBrand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid rgba(255, 99, 71, 0.2);
+    }
+
+    .sidebarTopBrand .sidebarLogo {
+        width: 100%;
+        height: 60px;
+        object-fit: contain;
+    }
+
+    .sidebarTopBrand p {
+        margin: 0;
+        color: tomato;
+        font-size: 21px;
+        font-weight: 700;
+    }
+
+    .navBarMenu a {
+        font-size: 18px;
+        color: #1f1f1f;
+    }
+
+    .sidebarCloseButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        font-size: 34px;
+        line-height: 1;
+        color: tomato;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        padding: 0;
+    }
+
+    .sidebarOverlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+        z-index: 60;
+    }
+
+    .navBarRight {
+        gap: 14px;
+    }
+
+    .usernameSection {
+        gap: 10px;
+    }
+
+    .navBar button {
+        padding: 8px 16px;
     }
 }
 
 @media (max-width:375px) {
-    .navBarMenu {
-        display: none;
+    .sidebarToggleButton {
+        width: 38px;
+        height: 38px;
+        font-size: 22px;
     }
 
     .navBar button {
-        padding: 5px 4px;
+        padding: 5px 10px;
     }
 }
