@@ -39,7 +39,7 @@ export default function FoodItem({ id, name, price, description, image }) {
                     {description}
                 </p>
                 <p className="foodItemPrice">
-                    ${price}
+                    ₹{price}
                 </p>
             </div>
         </div>

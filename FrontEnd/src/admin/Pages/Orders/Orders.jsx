@@ -72,12 +72,12 @@ export default function Orders() {
                   </span>
                 </div>
                 <div className="orderBody">
-                  <p>Total: ${order.totalAmount?.toFixed(2)}</p>
+                  <p>Total: ₹{order.totalAmount?.toFixed(2)}</p>
                   {order.orderItems?.length > 0 && (
                     <ul>
                       {order.orderItems.map((item, i) => (
                         <li key={i}>
-                          {item.foodName} × {item.quantity} — ${(item.foodPrice * item.quantity).toFixed(2)}
+                          {item.foodName} × {item.quantity} — ₹{(item.foodPrice * item.quantity).toFixed(2)}
                         </li>
                       ))}
                     </ul>

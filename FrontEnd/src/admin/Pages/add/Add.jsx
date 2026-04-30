@@ -106,7 +106,7 @@ export default function Add() {
           </div>
           <div className="addPrice flex-col">
             <p>Product Price</p>
-            <input type="number" name="price" placeholder="$20" step="0.01" min="0" />
+            <input type="number" name="price" placeholder="₹200" step="0.01" min="0" />
           </div>
         </div>
 

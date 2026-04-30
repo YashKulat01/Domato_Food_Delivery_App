@@ -23,7 +23,7 @@ export default function PlaceOrder() {
   });
 
   const subtotal = getTotalCartAmount();
-  const deliveryFee = subtotal === 0 ? 0 : 2;
+  const deliveryFee = subtotal === 0 ? 0 : 50;
   const total = subtotal + deliveryFee;
 
   const validateForm = () => {
@@ -220,17 +220,17 @@ export default function PlaceOrder() {
           <div>
             <div className="cartTotalDetails">
               <p>Subtotal</p>
-              <p>${subtotal.toFixed(2)}</p>
+              <p>₹{subtotal.toFixed(2)}</p>
             </div>
             <hr />
             <div className="cartTotalDetails">
               <p>Delivery Fee</p>
-              <p>${deliveryFee}</p>
+              <p>₹{deliveryFee}</p>
             </div>
             <hr />
             <div className="cartTotalDetails">
               <b>Total</b>
-              <b>${total.toFixed(2)}</b>
+              <b>₹{total.toFixed(2)}</b>
             </div>
           </div>
           {error && <p style={{ color: "red" }}>{error}</p>}

@@ -34,9 +34,9 @@ export default function Cart() {
                 <div className="cartItemsTitle cartItemsItem">
                   <img src={item.image} alt="" />
                   <p>{item.name}</p>
-                  <p>${item.price}</p>
+                  <p>₹{item.price}</p>
                   <p>{qty}</p>
-                  <p>${(item.price * qty).toFixed(2)}</p>
+                  <p>₹{(item.price * qty).toFixed(2)}</p>
                   <p
                     className="cross"
                     onClick={() => removeFromCart(item._id ?? item.foodId)}
@@ -60,17 +60,17 @@ export default function Cart() {
           <div>
             <div className="cartTotalDetails">
               <p>Subtotal</p>
-              <p>${getTotalCartAmount()}</p>
+              <p>₹{getTotalCartAmount()}</p>
             </div>
             <hr />
             <div className="cartTotalDetails">
               <p>Delivery Fee</p>
-              <p>${getTotalCartAmount() === 0 ? 0 : 2}</p>
+              <p>₹{getTotalCartAmount() === 0 ? 0 : 2}</p>
             </div>
             <hr />
             <div className="cartTotalDetails">
               <b>Total </b>
-              <b>${getTotalCartAmount() === 0 ? 0 : (getTotalCartAmount() + 2).toFixed(2)}</b>
+              <b>₹{getTotalCartAmount() === 0 ? 0 : (getTotalCartAmount() + 2).toFixed(2)}</b>
             </div>
           </div>
           <button

@@ -63,7 +63,7 @@ export default function List() {
                     />
                   </td>
                   <td><strong>{item.name}</strong></td>
-                  <td>${Number(item.price).toFixed(2)}</td>
+                  <td>₹{Number(item.price).toFixed(2)}</td>
                   <td>{item.category}</td>
                   <td>
                     <button

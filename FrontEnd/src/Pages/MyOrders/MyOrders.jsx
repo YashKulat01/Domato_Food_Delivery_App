@@ -11,6 +11,16 @@ const statusDisplay = {
   CANCELLED: "Cancelled",
 };
 
+const statusClass = (status) => {
+  const s = (status || "").toLowerCase();
+  if (s === "placed") return "placed";
+  if (s === "confirmed") return "confirmed";
+  if (s === "preparing") return "preparing";
+  if (s === "delivered") return "delivered";
+  if (s === "cancelled") return "cancelled";
+  return "";
+};
+
 export default function MyOrders() {
   const { user } = useContext(storeContext);
   const [orders, setOrders] = useState([]);
@@ -52,15 +62,17 @@ export default function MyOrders() {
               <div className="orderHeader">
                 <span>Order #{order.id}</span>
                 <span>{new Date(order.orderDate).toLocaleString()}</span>
-                <strong>{statusDisplay[order.orderStatus] || order.orderStatus}</strong>
+                <span className={`orderStatus ${statusClass(order.orderStatus)}`}>
+                  {statusDisplay[order.orderStatus] || order.orderStatus}
+                </span>
               </div>
               <div className="orderBody">
-                <p>Total: ${order.totalAmount?.toFixed(2)}</p>
+                <p>Total: ₹{order.totalAmount?.toFixed(2)}</p>
                 {order.orderItems?.length > 0 && (
                   <ul>
                     {order.orderItems.map((item, i) => (
                       <li key={i}>
-                        {item.foodName} x {item.quantity} - $
+                        {item.foodName} x {item.quantity} - ₹
                         {(item.foodPrice * item.quantity).toFixed(2)}
                       </li>
                     ))}

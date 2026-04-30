@@ -42,7 +42,7 @@ public class EmailServiceImpl implements EmailService {
 		String items = order.getOrderItems() == null ? "No items"
 				: order.getOrderItems().stream().map(this::formatItem).collect(Collectors.joining("\n"));
 		return intro + "\n\n" + "Order ID: " + order.getId() + "\n" + "Status: " + order.getOrderStatus() + "\n"
-				+ "Total Amount: " + order.getTotalAmount() + "\n" + "Order Date: " + order.getOrderDate() + "\n\n"
+				+ "Total Amount: Rs " + order.getTotalAmount() + "\n" + "Order Date: " + order.getOrderDate() + "\n\n"
 				+ "Items:\n" + items + "\n\n" + "Thank you for ordering with Domato.";
 	}
 

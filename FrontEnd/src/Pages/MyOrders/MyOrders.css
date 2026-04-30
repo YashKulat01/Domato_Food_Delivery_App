@@ -30,6 +30,41 @@
   gap: 0.5rem;
 }
 
+.myOrders .orderStatus {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.myOrders .orderStatus.placed {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.myOrders .orderStatus.confirmed {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.myOrders .orderStatus.preparing {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.myOrders .orderStatus.delivered {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.myOrders .orderStatus.cancelled {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
 .myOrders .orderBody ul {
   margin: 0.5rem 0 0 1rem;
   padding: 0;
