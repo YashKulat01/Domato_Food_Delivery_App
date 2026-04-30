@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project_domato.dtos.AddressDTO;
 import com.project_domato.dtos.OrderDTO;
 import com.project_domato.enums.OrderStatus;
 import com.project_domato.services.OrderService;
@@ -28,8 +30,8 @@ public class OrderController {
 	private OrderService orderService;
 	
 	@PostMapping("/place/{user_id}")
-	 public ResponseEntity<OrderDTO> placeOrder(@PathVariable Integer user_id) {
-        return ResponseEntity.ok(orderService.placeOrder(user_id));
+	 public ResponseEntity<OrderDTO> placeOrder(@PathVariable Integer user_id, @RequestBody AddressDTO addressDTO) {
+        return ResponseEntity.ok(orderService.placeOrder(user_id, addressDTO));
     }
 	
 	

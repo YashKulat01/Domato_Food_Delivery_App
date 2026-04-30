@@ -25,7 +25,7 @@ public class AddressDTO {
 
 	private Integer zipCode;
 
-	private String Country;
+	private String country;
 
-	private Integer phone;
+	private Long phone;
 }

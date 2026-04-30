@@ -36,9 +36,9 @@ public class Address {
 	
 	private Integer zipCode;
 	
-	private String Country;
+	private String country;
 	
-	private Integer phone;
+	private Long phone;
 	
 	@OneToOne(mappedBy = "address",cascade = CascadeType.ALL)
 	@JsonBackReference

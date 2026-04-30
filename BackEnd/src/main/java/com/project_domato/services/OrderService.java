@@ -2,12 +2,13 @@ package com.project_domato.services;
 
 import java.util.List;
 
+import com.project_domato.dtos.AddressDTO;
 import com.project_domato.dtos.OrderDTO;
 import com.project_domato.enums.OrderStatus;
 
 public interface OrderService {
 
-	OrderDTO placeOrder(Integer userId);
+	OrderDTO placeOrder(Integer userId, AddressDTO addressDTO);
 	
 	List<OrderDTO> getOrdersByUser(Integer userId);
 	

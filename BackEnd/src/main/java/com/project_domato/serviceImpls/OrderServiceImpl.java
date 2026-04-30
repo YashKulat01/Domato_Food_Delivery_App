@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import com.project_domato.exception.NotFoundException;
 import com.project_domato.Entities.Cart;
 import com.project_domato.Entities.CartItems;
+import com.project_domato.Entities.Address;
 import com.project_domato.Entities.Order;
 import com.project_domato.Entities.OrderItems;
 import com.project_domato.Entities.User;
+import com.project_domato.dtos.AddressDTO;
 import com.project_domato.dtos.OrderDTO;
 import com.project_domato.enums.OrderStatus;
 import com.project_domato.repositories.CartRepository;
@@ -41,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
 	private EmailService emailService;
 
 	@Override
-	public OrderDTO placeOrder(Integer userId) {
+	public OrderDTO placeOrder(Integer userId, AddressDTO addressDTO) {
 		// TODO Auto-generated method stub
 
 		// CHECK IF THE USER IS PRESENT OR NOT;
@@ -55,6 +57,11 @@ public class OrderServiceImpl implements OrderService {
 		order.setOrderDate(LocalDateTime.now());
 
 		order.setOrderStatus(OrderStatus.PLACED);
+		if (addressDTO != null) {
+			Address address = modelMapper.map(addressDTO, Address.class);
+			address.setOrder(order);
+			order.setAddress(address);
+		}
 
 		List<OrderItems> orderItems = new ArrayList<>();
 

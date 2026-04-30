@@ -78,7 +78,18 @@ export default function PlaceOrder() {
     setError("");
     setPlacing(true);
     try {
-      const res = await api.post(`/orders/place/${user.id}`);
+      const payload = {
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        email: formData.email.trim(),
+        street: formData.street.trim(),
+        city: formData.city.trim(),
+        state: formData.state.trim(),
+        zipCode: parseInt(formData.zipCode, 10),
+        country: formData.country.trim(),
+        phone: parseInt(formData.phone, 10),
+      };
+      const res = await api.post(`/orders/place/${user.id}`, payload);
       const orderId = res.data.id;
       refreshCart();
       // navigate to payment page for the created order
